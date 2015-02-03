@@ -16,7 +16,7 @@ endif
 OCTOTHORPE=../octothorpe
 CPPFLAGS=-I$(OCTOTHORPE) $(CPPFLAGS_ADD)
 CFLAGS=-Wall -g -std=gnu99
-SOURCES=x86_disas.c X86_register.c x86_tbl.c
+SOURCES=x86_disas.c X86_register.c
 TEST_SOURCES=x86_disasm_test_x64.c x86_disasm_tests.c
 OUTDIR=$(MSYSTEM)_$(bsuffix)
 OBJECTS=$(addprefix $(OUTDIR)/,$(SOURCES:.c=.o))

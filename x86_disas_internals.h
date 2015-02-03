@@ -167,127 +167,16 @@ bool Da_stage1_Da_stage1 (Da_stage1 *p, TrueFalseUndefined x64_code, disas_addre
 // this information will be used in print_unused_tbl_entries() while testing
 #define F_HIT_DURING_EXECUTION  OCTABYTE_1<<45
 
-typedef enum _op_source
-{
-    OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE,
-    OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE,
-    OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE,
-
-    OP_1, // operand = 1
-    OP_AH,
-    OP_AL, // operand is AL
-    OP_AX,
-    OP_BH,
-    OP_BL,
-    OP_BX,
-    OP_CH,
-    OP_CL,
-    OP_CX,
-    OP_DH,
-    OP_DL,
-    OP_DX,
-    OP_EAX, // = EAX
-    OP_EBP, // = EBP
-    OP_EBX, // = EBX
-    OP_ECX, // = ECX
-    OP_EDI, // = EDI
-    OP_EDX, // = EDX
-    OP_ESI, // = ESI
-    OP_ESP,
-
-    OP_RAX,
-    OP_RBP,
-    OP_RBX,
-    OP_RCX,
-    OP_RDI,
-    OP_RDX,
-    OP_RSI,
-    OP_RSP,
-
-    OP_SP,
-    OP_BP,
-    OP_SI,
-    OP_DI,
-
-    OP_ST0,
-    OP_ST1,
-    OP_ST2,
-    OP_ST3,
-    OP_ST4,
-    OP_ST5,
-    OP_ST6,
-    OP_ST7,
-
-    OP_ES, // 0
-    OP_CS, // 1
-    OP_SS, // 2
-    OP_DS, // 3
-    OP_FS, // 4
-    OP_GS, // 5
-
-    OP_MODRM_R64, // take operand from REG field of MODRM
-    OP_MODRM_RM64, // take operand from MODRM field of MODRM
-
-    OP_MODRM_R32, // take operand from REG field of MODRM (39)
-    OP_MODRM_RM32, // take operand from MODRM field of MODRM (40)
-
-    OP_MODRM_R16, // take operand from REG field of MODRM
-    OP_MODRM_RM16, // take operand from MODRM field of MODRM
-
-    OP_MODRM_SREG, // take operand from REG field of MODRM as Sreg3 (segment registers)
-
-    OP_MODRM_R8, // take operand from REG field of MODRM as r8
-    OP_MODRM_RM8, // take operand from MODRM field of MODRM as r/m8
-
-    OP_MODRM_R_MM, // take operand from REG field of MODRM as MMX register
-    OP_MODRM_RM_MM, // take operand from MODRM field of MODRM as MMX register
-
-    OP_MODRM_R_XMM, // take operand from REG field of MODRM as XMM register
-    OP_MODRM_RM_XMM, // take operand from MODRM field of MODRM as XMM register
-
-    OP_MOFFS32,
-    OP_MOFFS16,
-    OP_MOFFS8,
-
-    OP_MODRM_RM_M64FP,
-
-    OP_IMM8, // take operand from IMM8 field
-    OP_IMM8_SIGN_EXTENDED_TO_IMM32, // take byte (imm8) and sign-extend it to imm32
-    OP_IMM8_SIGN_EXTENDED_TO_IMM16, // take byte (imm8) and sign-extend it to imm16
-    OP_IMM8_SIGN_EXTENDED_TO_IMM64,
-    OP_IMM16, // take operand from IMM16 field
-    OP_IMM16_SIGN_EXTENDED_TO_IMM32,
-    OP_IMM16_SIGN_EXTENDED_TO_IMM64,
-    OP_IMM32, // take operand from IMM32 field
-    OP_IMM32_SIGN_EXTENDED_TO_IMM64, // as it in PUSH (68...)
-    OP_IMM64,
-
-    OP_IMM64_AS_OFS8,
-    OP_IMM64_AS_OFS32,
-    OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE, // for MOV (A0, A1...)
-    OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_DWORD, // for MOV (A0, A1...)
-
-    OP_IMM32_AS_OFS32, // take IMM32 as offset, e.g. MOV DWORD PTR [IMM32], reg
-    OP_IMM32_AS_OFS16, // take IMM32 as offset, e.g. MOV WORD PTR [IMM32], reg
-    OP_IMM32_AS_OFS8, // take IMM32 as offset, e.g. MOV BYTE PTR [IMM32], reg
-
-    OP_IMM32_AS_REL32, // take IMM32 as rel32 for JMP rel32
-    OP_IMM32_SIGN_EXTENDED_TO_REL64,
-
-    OP_IMM8_AS_REL32, // take IMM8 as rel32 for JMP imm8
-    OP_IMM8_AS_REL64,
-
-    OP_ABSENT
-} op_source;
+typedef bool (*c_OP_fn) (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out);
 
 typedef struct _Ins_definition
 {
     uint8_t opc;
     uint8_t opc2;
     uint64_t flags;
-    op_source op1; // source of first operand
-    op_source op2; // second
-    op_source op3; // third
+    c_OP_fn op1; // source of first operand
+    c_OP_fn op2; // second
+    c_OP_fn op3; // third
 
     const char *name;
 

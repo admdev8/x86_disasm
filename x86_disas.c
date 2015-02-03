@@ -20,7 +20,7 @@
 #include "fmt_utils.h"
 #include "memutils.h"
 
-extern Ins_definition ins_tbl[]; // in x86_tbl.cpp file
+Ins_definition ins_tbl[];
 
 static X86_register _64_registers_by_idx[]=
 { R_RAX, R_RCX, R_RDX, R_RBX, R_RSP, R_RBP, R_RSI, R_RDI, R_R8, R_R9, R_R10, R_R11, R_R12, R_R13, R_R14, R_R15 };
@@ -1039,7 +1039,7 @@ void init_adr_in_Da_op (Da_op *out)
 	out->adr.adr_disp_pos=0;
 };
 
-static bool c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; 
 	out->value_width_in_bits=64;
@@ -1047,7 +1047,7 @@ static bool c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_ad
 	return true;
 };
 
-static bool c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; 
 
@@ -1067,7 +1067,7 @@ static bool c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_ad
 	return true;
 };
 
-static bool c_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; 
 	out->value_width_in_bits=8;
@@ -1078,7 +1078,7 @@ static bool c_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (Da_stage1 *stage1, disas_add
 	return true;
 };
 
-static bool c_OP_1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	if (value_in7(stage1->ins_code, I_ROL, I_ROR, I_RCL, I_RCR, I_SHL, I_SHR, I_SAR))
 	{
@@ -1095,283 +1095,283 @@ static bool c_OP_1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, 
 	return true;
 };
 
-static bool c_OP_AH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_AH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_AH;
 	return true;
 };
 
-static bool c_OP_AL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_AL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_AL;
 	return true;
 };
 
-static bool c_OP_BH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_BH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_BH;
 	return true;
 };
 
-static bool c_OP_BL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_BL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_BL;
 	return true;
 };
 
-static bool c_OP_CH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_CH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_CH;
 	return true;
 };
 
-static bool c_OP_CL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_CL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_CL;
 	return true;
 };
 
-static bool c_OP_DH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_DH (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_DH;
 	return true;
 };
 
-static bool c_OP_DL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_DL (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_DL;
 	return true;
 };
 
-static bool c_OP_AX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_AX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_AX;
 	return true;
 }
 
-static bool c_OP_BX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_BX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_BX;
 	return true;
 }
 
-static bool c_OP_CX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_CX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_CX;
 	return true;
 }
 
-static bool c_OP_DX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_DX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_DX;
 	return true;
 }
 
-static bool c_OP_SP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_SP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool c_OP_BP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_BP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool c_OP_SI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_SI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool c_OP_DI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_DI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool c_OP_EAX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_EAX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EAX;
 	return true;
 };
 
-static bool c_OP_EBX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_EBX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EBX;
 	return true;
 };
 
-static bool c_OP_ECX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ECX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_ECX;
 	return true;
 };
 
-static bool c_OP_EDX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_EDX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EDX;
 	return true;
 };
 
-static bool c_OP_ESI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ESI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_ESI;
 	return true;
 };
 
-static bool c_OP_EDI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_EDI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EDI;
 	return true;
 };
 
-static bool c_OP_EBP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_EBP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EBP;
 	return true;
 };
 
-static bool c_OP_ESP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ESP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_ESP;
 	return true;
 };
 
-static bool c_OP_RAX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RAX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RAX;
 	return true;
 };
 
-static bool c_OP_RBX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RBX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RBX;
 	return true;
 };
 
-static bool c_OP_RCX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RCX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RCX;
 	return true;
 };
 
-static bool c_OP_RDX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RDX (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RDX;
 	return true;
 };
 
-static bool c_OP_RSI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RSI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RSI;
 	return true;
 };
 
-static bool c_OP_RDI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RDI (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RDI;
 	return true;
 };
 
-static bool c_OP_RBP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RBP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RBP;
 	return true;
 };
 
-static bool c_OP_RSP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_RSP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RSP;
 	return true;
 };
 
-static bool c_OP_ST0 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST0 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST0;
 	return true;
 };
 
-static bool c_OP_ST1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST1;
 	return true;
 };
 
-static bool c_OP_ST2 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST2 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST2;
 	return true;
 };
 
-static bool c_OP_ST3 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST3 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST3;
 	return true;
 };
 
-static bool c_OP_ST4 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST4 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST4;
 	return true;
 };
 
-static bool c_OP_ST5 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST5 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST5;
 	return true;
 };
 
-static bool c_OP_ST6 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST6 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST6;
 	return true;
 };
 
-static bool c_OP_ST7 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ST7 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST7;
 	return true;
 };
 
-static bool c_OP_ES (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_ES (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_ES;
 	return true;
 };
 
-static bool c_OP_CS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_CS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_CS;
 	return true;
 };
 
-static bool c_OP_SS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_SS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SS;
 	return true;
 };
 
-static bool c_OP_DS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_DS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_DS;
 	return true;
 };
 
-static bool c_OP_FS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_FS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_FS;
 	return true;
 };
 
-static bool c_OP_GS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_GS (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_GS;
 	return true;
 };
 
-static bool c_OP_IMM8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true);
 
@@ -1382,7 +1382,7 @@ static bool c_OP_IMM8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_le
 	return true;
 };
 
-static bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true); // dirty hack
 
@@ -1392,7 +1392,7 @@ static bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM32 (Da_stage1 *stage1, disas_address i
 	return true;
 };
 
-static bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true); // dirty hack
 
@@ -1402,7 +1402,7 @@ static bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address i
 	return true;
 };
 
-static bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM16_loaded==true); // dirty hack
 
@@ -1412,7 +1412,7 @@ static bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM32 (Da_stage1 *stage1, disas_address 
 	return true;
 };
 
-static bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM16_loaded==true); // dirty hack
 
@@ -1422,7 +1422,7 @@ static bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address 
 	return true;
 };
 
-static bool c_OP_IMM32_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM32_loaded==true); // dirty hack
 
@@ -1444,7 +1444,7 @@ static bool c_OP_IMM32_SIGN_EXTENDED_TO_IMM64 (Da_stage1 *stage1, disas_address 
 	return true;
 };
 
-static bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE_or_DWORD (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, bool is_DWORD)
+bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE_or_DWORD (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, bool is_DWORD)
 {
 	if (stage1->IMM64_loaded==false)
 		return false; // yet. it's a hack!
@@ -1466,17 +1466,17 @@ static bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE_or_DWORD (Da_stage1 *stag
 	return true;
 };
 
-static bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE_or_DWORD (stage1, ins_adr, ins_len, out, false);
 };
 
-static bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_DWORD (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_DWORD (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE_or_DWORD (stage1, ins_adr, ins_len, out, true);
 };
 
-static bool c_OP_MOFFS8_16_32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, int size)
+bool c_OP_MOFFS8_16_32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, int size)
 {
 	oassert (stage1->PTR_loaded);
 	out->type=DA_OP_TYPE_VALUE_IN_MEMORY;
@@ -1500,22 +1500,22 @@ static bool c_OP_MOFFS8_16_32 (Da_stage1 *stage1, disas_address ins_adr, unsigne
 	};
 	return true;
 };
-static bool c_OP_MOFFS8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MOFFS8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MOFFS8_16_32 (stage1, ins_adr, ins_len, out, 8);
 };
 
-static bool c_OP_MOFFS16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MOFFS16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MOFFS8_16_32 (stage1, ins_adr, ins_len, out, 16);
 };
 
-static bool c_OP_MOFFS32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MOFFS32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MOFFS8_16_32 (stage1, ins_adr, ins_len, out, 32);
 };
 
-static bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true); // dirty hack
 
@@ -1525,7 +1525,7 @@ static bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM16 (Da_stage1 *stage1, disas_address i
 	return true;
 };
 
-static bool c_OP_IMM8_AS_REL32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM8_AS_REL32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true);
 
@@ -1535,7 +1535,7 @@ static bool c_OP_IMM8_AS_REL32 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_IMM8_AS_REL64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM8_AS_REL64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true);
 
@@ -1545,7 +1545,7 @@ static bool c_OP_IMM8_AS_REL64 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_IMM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM16_loaded==true);
 
@@ -1555,7 +1555,7 @@ static bool c_OP_IMM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_l
 	return true;
 };
 
-static bool c_OP_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM32_loaded==true);
 
@@ -1567,7 +1567,7 @@ static bool c_OP_IMM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_l
 	return true;
 };
 
-static bool c_OP_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM64_loaded==true);
 
@@ -1579,7 +1579,7 @@ static bool c_OP_IMM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_l
 	return true;
 };
 
-static bool c_OP_IMM32_AS_OFS32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32_AS_OFS32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM32_loaded==true);
 
@@ -1594,7 +1594,7 @@ static bool c_OP_IMM32_AS_OFS32 (Da_stage1 *stage1, disas_address ins_adr, unsig
 	return true;
 };
 
-static bool c_OP_IMM64_AS_OFS32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM64_AS_OFS32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM64_loaded==true);
 
@@ -1609,7 +1609,7 @@ static bool c_OP_IMM64_AS_OFS32 (Da_stage1 *stage1, disas_address ins_adr, unsig
 	return true;
 };
 
-static bool c_OP_IMM32_AS_OFS16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32_AS_OFS16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	if (stage1->IMM32_loaded==false)
 	{
@@ -1633,7 +1633,7 @@ static bool c_OP_IMM32_AS_OFS16 (Da_stage1 *stage1, disas_address ins_adr, unsig
 	return true;
 };
 
-static bool c_OP_IMM32_AS_OFS8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32_AS_OFS8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM32_loaded==true);
 
@@ -1647,7 +1647,7 @@ static bool c_OP_IMM32_AS_OFS8 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_IMM64_AS_OFS8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM64_AS_OFS8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM64_loaded==true);
 
@@ -1662,7 +1662,7 @@ static bool c_OP_IMM64_AS_OFS8 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_IMM32_AS_REL32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32_AS_REL32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM32_loaded==true);
 
@@ -1675,7 +1675,7 @@ static bool c_OP_IMM32_AS_REL32 (Da_stage1 *stage1, disas_address ins_adr, unsig
 	return true;
 };
 
-static bool c_OP_IMM32_SIGN_EXTENDED_TO_REL64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_IMM32_SIGN_EXTENDED_TO_REL64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM32_loaded==true);
 
@@ -1688,7 +1688,7 @@ static bool c_OP_IMM32_SIGN_EXTENDED_TO_REL64 (Da_stage1 *stage1, disas_address 
 	return true;
 };
 
-static bool c_OP_MODRM_R32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_R32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; 
@@ -1698,7 +1698,7 @@ static bool c_OP_MODRM_R32 (Da_stage1 *stage1, disas_address ins_adr, unsigned i
 	return true;
 };
 
-static bool c_OP_MODRM_R64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_R64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; 
@@ -1707,7 +1707,7 @@ static bool c_OP_MODRM_R64 (Da_stage1 *stage1, disas_address ins_adr, unsigned i
 	return true;
 };
 
-static bool c_OP_MODRM_R16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_R16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; 
@@ -1718,7 +1718,7 @@ static bool c_OP_MODRM_R16 (Da_stage1 *stage1, disas_address ins_adr, unsigned i
 	return true;
 };
 
-static bool c_OP_MODRM_SREG (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_SREG (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; 
@@ -1737,7 +1737,7 @@ static bool c_OP_MODRM_SREG (Da_stage1 *stage1, disas_address ins_adr, unsigned 
 	return true;
 };
 
-static bool c_OP_MODRM_R8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_R8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8;
@@ -1748,7 +1748,7 @@ static bool c_OP_MODRM_R8 (Da_stage1 *stage1, disas_address ins_adr, unsigned in
 	return true;
 };
 
-static bool c_OP_MODRM_R_XMM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_R_XMM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; 
@@ -1760,7 +1760,7 @@ static bool c_OP_MODRM_R_XMM (Da_stage1 *stage1, disas_address ins_adr, unsigned
 	return true;
 };
 
-static bool c_OP_MODRM_R_MM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_R_MM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->MODRM_loaded==true);
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64;
@@ -1789,7 +1789,7 @@ enum tmp
 	tmp_RM_M64FP
 };
 
-static bool c_OP_MODRM_RM_mod0 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
+bool c_OP_MODRM_RM_mod0 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
 {
 	out->type=DA_OP_TYPE_VALUE_IN_MEMORY;
 	init_adr_in_Da_op(out);
@@ -1881,7 +1881,7 @@ static bool c_OP_MODRM_RM_mod0 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_MODRM_RM_mod1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
+bool c_OP_MODRM_RM_mod1 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
 {
 	out->type=DA_OP_TYPE_VALUE_IN_MEMORY;
 	init_adr_in_Da_op(out);
@@ -1958,7 +1958,7 @@ static bool c_OP_MODRM_RM_mod1 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_MODRM_RM_mod2 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
+bool c_OP_MODRM_RM_mod2 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
 {
 	out->type=DA_OP_TYPE_VALUE_IN_MEMORY;
 	init_adr_in_Da_op(out);
@@ -2033,7 +2033,7 @@ static bool c_OP_MODRM_RM_mod2 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_MODRM_RM_mod3 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
+bool c_OP_MODRM_RM_mod3 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
 {
 	switch (_tmp)
 	{
@@ -2123,7 +2123,7 @@ static bool c_OP_MODRM_RM_mod3 (Da_stage1 *stage1, disas_address ins_adr, unsign
 	return true;
 };
 
-static bool c_OP_MODRM_RM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
+bool c_OP_MODRM_RM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out, enum tmp _tmp)
 {
 	oassert (stage1->MODRM_loaded==true);
 	switch (stage1->MODRM.s.MOD)
@@ -2145,299 +2145,120 @@ static bool c_OP_MODRM_RM (Da_stage1 *stage1, disas_address ins_adr, unsigned in
 	return true;
 };
 
-static bool c_OP_MODRM_RM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM64 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM64);
 };
 
-static bool c_OP_MODRM_RM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM32 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM32);
 };
 
-static bool c_OP_MODRM_RM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM16 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM16);
 };
 
-static bool c_OP_MODRM_RM8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM8 (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM8);
 };
 
-static bool c_OP_MODRM_RM_XMM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM_XMM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM_XMM);
 };
 
-static bool c_OP_MODRM_RM_MM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM_MM (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM_MM);
 };
 
-static bool c_OP_MODRM_RM_M64FP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+bool c_OP_MODRM_RM_M64FP (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	return c_OP_MODRM_RM (stage1, ins_adr, ins_len, out, tmp_RM_M64FP);
 };
 
-static bool create_Da_op (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+Ins_definition ins_tbl[]=
 {
-	oassert (op!=OP_ABSENT);
+    // * WARNING: entries should be sorted by first byte
+    // * ins with F_REG32_IS_LOWEST_PART_OF_1ST_BYTE should be first before others, with the same opcode!
+#include "x86_tbl_entries.h"
+    
+    { 0, 0, 0, NULL, NULL, NULL, NULL, I_INVALID }
 
-	switch (op)
-	{
-        case OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE:
-		return c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (stage1, ins_adr, ins_len, out);
-
-        case OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE:
-		return c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (stage1, ins_adr, ins_len, out);
-
-        case OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE:
-		return c_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (stage1, ins_adr, ins_len, out);
-
-        case OP_1:
-		return c_OP_1(stage1, ins_adr, ins_len, out);
-
-	case OP_AH: return c_OP_AH (stage1, ins_adr, ins_len, out);
-	case OP_AL: return c_OP_AL (stage1, ins_adr, ins_len, out);
-	case OP_BH: return c_OP_BH (stage1, ins_adr, ins_len, out);
-	case OP_BL: return c_OP_BL (stage1, ins_adr, ins_len, out);
-	case OP_CH: return c_OP_CH (stage1, ins_adr, ins_len, out);
-	case OP_CL: return c_OP_CL (stage1, ins_adr, ins_len, out);
-	case OP_DH: return c_OP_DH (stage1, ins_adr, ins_len, out);
-	case OP_DL: return c_OP_DL (stage1, ins_adr, ins_len, out);
-
-        case OP_AX: return c_OP_AX (stage1, ins_adr, ins_len, out);
-        case OP_BX: return c_OP_BX (stage1, ins_adr, ins_len, out);
-        case OP_CX: return c_OP_CX (stage1, ins_adr, ins_len, out);
-        case OP_DX: return c_OP_DX (stage1, ins_adr, ins_len, out);
-
-        case OP_SP: return c_OP_SP (stage1, ins_adr, ins_len, out);
-        case OP_BP: return c_OP_BP (stage1, ins_adr, ins_len, out);
-        case OP_SI: return c_OP_SI (stage1, ins_adr, ins_len, out);
-        case OP_DI: return c_OP_DI (stage1, ins_adr, ins_len, out);
-
-        case OP_EAX: return c_OP_EAX (stage1, ins_adr, ins_len, out);
-        case OP_EBX: return c_OP_EBX (stage1, ins_adr, ins_len, out);
-        case OP_ECX: return c_OP_ECX (stage1, ins_adr, ins_len, out);
-        case OP_EDX: return c_OP_EDX (stage1, ins_adr, ins_len, out);
-        case OP_EDI: return c_OP_EDI (stage1, ins_adr, ins_len, out);
-        case OP_ESI: return c_OP_ESI (stage1, ins_adr, ins_len, out);
-        case OP_EBP: return c_OP_EBP (stage1, ins_adr, ins_len, out);
-        case OP_ESP: return c_OP_ESP (stage1, ins_adr, ins_len, out);
-
-        case OP_RAX: return c_OP_RAX (stage1, ins_adr, ins_len, out);
-        case OP_RBX: return c_OP_RBX (stage1, ins_adr, ins_len, out);
-        case OP_RCX: return c_OP_RCX (stage1, ins_adr, ins_len, out);
-        case OP_RDX: return c_OP_RDX (stage1, ins_adr, ins_len, out);
-        case OP_RSI: return c_OP_RSI (stage1, ins_adr, ins_len, out);
-        case OP_RDI: return c_OP_RDI (stage1, ins_adr, ins_len, out);
-        case OP_RBP: return c_OP_RBP (stage1, ins_adr, ins_len, out);
-        case OP_RSP: return c_OP_RSP (stage1, ins_adr, ins_len, out);
-
-        case OP_ST0: return c_OP_ST0 (stage1, ins_adr, ins_len, out);
-        case OP_ST1: return c_OP_ST1 (stage1, ins_adr, ins_len, out);
-        case OP_ST2: return c_OP_ST2 (stage1, ins_adr, ins_len, out);
-        case OP_ST3: return c_OP_ST3 (stage1, ins_adr, ins_len, out);
-        case OP_ST4: return c_OP_ST4 (stage1, ins_adr, ins_len, out);
-        case OP_ST5: return c_OP_ST5 (stage1, ins_adr, ins_len, out);
-        case OP_ST6: return c_OP_ST6 (stage1, ins_adr, ins_len, out);
-        case OP_ST7: return c_OP_ST7 (stage1, ins_adr, ins_len, out);
-
-        case OP_ES: return c_OP_ES (stage1, ins_adr, ins_len, out);
-        case OP_CS: return c_OP_CS (stage1, ins_adr, ins_len, out);
-        case OP_SS: return c_OP_SS (stage1, ins_adr, ins_len, out);
-        case OP_DS: return c_OP_DS (stage1, ins_adr, ins_len, out);
-        case OP_FS: return c_OP_FS (stage1, ins_adr, ins_len, out);
-        case OP_GS: return c_OP_GS (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM8: return c_OP_IMM8(stage1, ins_adr, ins_len, out);
-
-        case OP_IMM8_SIGN_EXTENDED_TO_IMM32:
-		return c_OP_IMM8_SIGN_EXTENDED_TO_IMM32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM8_SIGN_EXTENDED_TO_IMM64:
-		return c_OP_IMM8_SIGN_EXTENDED_TO_IMM64 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM16_SIGN_EXTENDED_TO_IMM32:
-		return c_OP_IMM16_SIGN_EXTENDED_TO_IMM32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM16_SIGN_EXTENDED_TO_IMM64:
-		return c_OP_IMM16_SIGN_EXTENDED_TO_IMM64 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32_SIGN_EXTENDED_TO_IMM64:
-		return c_OP_IMM32_SIGN_EXTENDED_TO_IMM64 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE:
-		return c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_BYTE (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_DWORD:
-		return c_OP_IMM64_AS_ABSOLUTE_ADDRESS_PTR_TO_DWORD (stage1, ins_adr, ins_len, out);
-
-        case OP_MOFFS32:
-		return c_OP_MOFFS32 (stage1, ins_adr, ins_len, out);
-        case OP_MOFFS16:
-		return c_OP_MOFFS16 (stage1, ins_adr, ins_len, out);
-        case OP_MOFFS8:
-		return c_OP_MOFFS8 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM8_SIGN_EXTENDED_TO_IMM16:
-		return c_OP_IMM8_SIGN_EXTENDED_TO_IMM16 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM8_AS_REL32:
-		return c_OP_IMM8_AS_REL32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM8_AS_REL64:
-		return c_OP_IMM8_AS_REL64 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM16:
-		return c_OP_IMM16 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32:
-		return c_OP_IMM32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM64:
-		return c_OP_IMM64 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32_AS_OFS32:
-		return c_OP_IMM32_AS_OFS32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM64_AS_OFS32:
-		return c_OP_IMM64_AS_OFS32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32_AS_OFS16:
-		return c_OP_IMM32_AS_OFS16 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32_AS_OFS8:
-		return c_OP_IMM32_AS_OFS8 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM64_AS_OFS8:
-		return c_OP_IMM64_AS_OFS8 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32_AS_REL32:
-		return c_OP_IMM32_AS_REL32 (stage1, ins_adr, ins_len, out);
-
-        case OP_IMM32_SIGN_EXTENDED_TO_REL64:
-		return c_OP_IMM32_SIGN_EXTENDED_TO_REL64 (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_R32:
-		return c_OP_MODRM_R32 (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_R64:
-		return c_OP_MODRM_R64 (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_R16:
-		return c_OP_MODRM_R16 (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_SREG:
-		return c_OP_MODRM_SREG (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_R8:
-		return c_OP_MODRM_R8 (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_R_XMM:
-		return c_OP_MODRM_R_XMM (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_R_MM:
-		return c_OP_MODRM_R_MM (stage1, ins_adr, ins_len, out);
-
-        case OP_MODRM_RM64:
-		return c_OP_MODRM_RM64 (stage1, ins_adr, ins_len, out);
-        case OP_MODRM_RM32:
-		return c_OP_MODRM_RM32 (stage1, ins_adr, ins_len, out);
-        case OP_MODRM_RM16:
-		return c_OP_MODRM_RM16 (stage1, ins_adr, ins_len, out);
-        case OP_MODRM_RM8:
-		return c_OP_MODRM_RM8 (stage1, ins_adr, ins_len, out);
-        case OP_MODRM_RM_XMM:
-		return c_OP_MODRM_RM_XMM (stage1, ins_adr, ins_len, out);
-        case OP_MODRM_RM_MM:
-		return c_OP_MODRM_RM_MM (stage1, ins_adr, ins_len, out);
-        case OP_MODRM_RM_M64FP:
-		return c_OP_MODRM_RM_M64FP (stage1, ins_adr, ins_len, out);
-
-        default:
-		L ("unknown op=%d\n", op);
-		oassert(0); fatal_error();
-	};
-
-	return true;
 };
 
-static op_source shrink_op_32_to_16 (op_source op)
+static c_OP_fn shrink_op_32_to_16 (c_OP_fn op)
 {
-	switch (op)
-	{
-        case OP_EAX: return OP_AX;
-        case OP_EBX: return OP_BX;
-        case OP_ECX: return OP_CX;
-        case OP_EDX: return OP_DX;
-        case OP_ESI: return OP_SI;
-        case OP_EDI: return OP_DI;
-        case OP_EBP: return OP_BP;
-        case OP_ESP: return OP_SP;
+	if (op==c_OP_EAX) return c_OP_AX;
+        if (op==c_OP_EBX) return c_OP_BX;
+        if (op==c_OP_ECX) return c_OP_CX;
+        if (op==c_OP_EDX) return c_OP_DX;
+        if (op==c_OP_ESI) return c_OP_SI;
+        if (op==c_OP_EDI) return c_OP_DI;
+        if (op==c_OP_EBP) return c_OP_BP;
+        if (op==c_OP_ESP) return c_OP_SP;
 
-        case OP_MODRM_R32: return OP_MODRM_R16;
-        case OP_MODRM_RM32: return OP_MODRM_RM16;
+        if (op==c_OP_MODRM_R32) return c_OP_MODRM_R16;
+        if (op==c_OP_MODRM_RM32) return c_OP_MODRM_RM16;
 
-        case OP_IMM8_SIGN_EXTENDED_TO_IMM32: return OP_IMM8_SIGN_EXTENDED_TO_IMM16;
-        case OP_IMM32: return OP_IMM16;
+        if (op==c_OP_IMM8_SIGN_EXTENDED_TO_IMM32) return c_OP_IMM8_SIGN_EXTENDED_TO_IMM16;
+        if (op==c_OP_IMM32) return c_OP_IMM16;
 
-        case OP_IMM32_AS_OFS32: return OP_IMM32_AS_OFS16;
+        if (op==c_OP_IMM32_AS_OFS32) return c_OP_IMM32_AS_OFS16;
 
-        case OP_MOFFS32: return OP_MOFFS16;
+        if (op==c_OP_MOFFS32) return c_OP_MOFFS16;
 
-        default: return op;
-	};
+        // default
+	return op;
 };
 
-static op_source sign_extend_op_32_to_64 (op_source op)
+static c_OP_fn sign_extend_op_32_to_64 (c_OP_fn op)
 {
-	switch (op)
-	{
-        case OP_IMM8_SIGN_EXTENDED_TO_IMM32: return OP_IMM8_SIGN_EXTENDED_TO_IMM64;
-        case OP_IMM32_AS_REL32: return OP_IMM32_SIGN_EXTENDED_TO_REL64;
-        case OP_IMM32: return OP_IMM32_SIGN_EXTENDED_TO_IMM64;
-        default: return op;
-	};
+        if (op==c_OP_IMM8_SIGN_EXTENDED_TO_IMM32) return c_OP_IMM8_SIGN_EXTENDED_TO_IMM64;
+        if (op==c_OP_IMM32_AS_REL32) return c_OP_IMM32_SIGN_EXTENDED_TO_REL64;
+        if (op==c_OP_IMM32) return c_OP_IMM32_SIGN_EXTENDED_TO_IMM64;
+
+        // default
+	return op;
 };
 
-static op_source promote_op_32_to_64 (op_source op)
+static c_OP_fn promote_op_32_to_64 (c_OP_fn op)
 {
-	switch (op)
-	{
-        case OP_EAX: return OP_RAX;
-        case OP_EBX: return OP_RBX;
-        case OP_ECX: return OP_RCX;
-        case OP_EDX: return OP_RDX;
-        case OP_ESI: return OP_RSI;
-        case OP_EDI: return OP_RDI;
-        case OP_EBP: return OP_RBP;
-        case OP_ESP: return OP_RSP;
+        if (op==c_OP_EAX) return c_OP_RAX;
+        if (op==c_OP_EBX) return c_OP_RBX;
+        if (op==c_OP_ECX) return c_OP_RCX;
+        if (op==c_OP_EDX) return c_OP_RDX;
+        if (op==c_OP_ESI) return c_OP_RSI;
+        if (op==c_OP_EDI) return c_OP_RDI;
+        if (op==c_OP_EBP) return c_OP_RBP;
+        if (op==c_OP_ESP) return c_OP_RSP;
 
-        case OP_MODRM_R32: return OP_MODRM_R64;
-        case OP_MODRM_RM32: return OP_MODRM_RM64;
+        if (op==c_OP_MODRM_R32) return c_OP_MODRM_R64;
+        if (op==c_OP_MODRM_RM32) return c_OP_MODRM_RM64;
 
-        case OP_IMM8_SIGN_EXTENDED_TO_IMM32: return OP_IMM8_SIGN_EXTENDED_TO_IMM64;
-        case OP_IMM32: return OP_IMM64;
+        if (op==c_OP_IMM8_SIGN_EXTENDED_TO_IMM32) return c_OP_IMM8_SIGN_EXTENDED_TO_IMM64;
+        if (op==c_OP_IMM32) return c_OP_IMM64;
 
-        case OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE: return OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE;
+        if (op==c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE) return c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE;
 		//case OP_REG32_FROM_LOWEST_PART_OF_2ND_BYTE: return OP_REG64_FROM_LOWEST_PART_OF_2ND_BYTE;
 
-        case OP_IMM32_AS_REL32: return OP_IMM32_SIGN_EXTENDED_TO_REL64;
+        if (op==c_OP_IMM32_AS_REL32) return c_OP_IMM32_SIGN_EXTENDED_TO_REL64;
 
-        case OP_IMM8_AS_REL32: return OP_IMM8_AS_REL64;
+        if (op==c_OP_IMM8_AS_REL32) return c_OP_IMM8_AS_REL64;
 		//case OP_IMM32_AS_OFS32: return OP_IMM32_AS_OFS16;
 
-        default: return op;
-	};
+		// default
+		return op;
 };
 
 bool Da_stage1_into_result (Da_stage1 *stage1, disas_address adr_of_ins, Da* out)
 {
 	Ins_definition *i;
 	uint64_t fl;
-	op_source new_op1, new_op2, new_op3;
+	c_OP_fn new_op1, new_op2, new_op3;
 
 	out->ins_code=stage1->ins_code;
 	out->ins_len=stage1->len;
@@ -2483,21 +2304,21 @@ bool Da_stage1_into_result (Da_stage1 *stage1, disas_address adr_of_ins, Da* out
 	};
 
 	out->ops_total=0;
-	if (i->op1!=OP_ABSENT) 
+	if (i->op1)
 	{ 
-		if (create_Da_op (new_op1, stage1, adr_of_ins, out->ins_len, &out->op[0])==false)
+		if ((*new_op1) (stage1, adr_of_ins, out->ins_len, &out->op[0])==false)
 			return false;
 		out->ops_total=1;
 	}
-	if (i->op2!=OP_ABSENT) 
+	if (i->op2) 
 	{
-		if (create_Da_op (new_op2, stage1, adr_of_ins, out->ins_len, &out->op[1])==false)
+		if ((*new_op2) (stage1, adr_of_ins, out->ins_len, &out->op[1])==false)
 			return false;
 		out->ops_total=2;
 	};
-	if (i->op3!=OP_ABSENT)
+	if (i->op3)
 	{
-		if (create_Da_op (new_op3, stage1, adr_of_ins, out->ins_len, &out->op[2])==false)
+		if ((*new_op3) (stage1, adr_of_ins, out->ins_len, &out->op[2])==false)
 			return false;
 		out->ops_total=3;
 	};
@@ -2570,12 +2391,6 @@ bool Da_is_PUSH_EBP(Da *d)
 {
 	return (d->ins_code==I_PUSH) && Da_op_is_reg(&d->op[0], R_EBP);
 };
-
-//#include "x86_disas.h"
-
-//#include "utils.hpp"
-
-//using namespace std;
 
 // FIXME: переписать
 bool Da_op_is_adr_disp_negative(Da_op *op)
