@@ -19,7 +19,7 @@ extern "C" {
 typedef enum X86_register_t
 {
     R_ABSENT=0, // should always be zero!
-
+    
     R_AH,
     R_AL,
     R_AX,
@@ -140,7 +140,9 @@ typedef enum X86_register_t
     R_OF,
     R_CF,
     R_DF,
-    R_TF
+    R_TF,
+
+    R_MAX // should be present!
 } X86_register;
 
 X86_register X86_register_from_string (const char* s);
