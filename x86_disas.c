@@ -1039,7 +1039,7 @@ void init_adr_in_Da_op (Da_op *out)
 	out->adr.adr_disp_pos=0;
 };
 
-static bool create_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; 
 	out->value_width_in_bits=64;
@@ -1047,7 +1047,7 @@ static bool create_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage
 	return true;
 };
 
-static bool create_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; 
 
@@ -1067,7 +1067,7 @@ static bool create_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage
 	return true;
 };
 
-static bool create_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; 
 	out->value_width_in_bits=8;
@@ -1078,7 +1078,7 @@ static bool create_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (op_source op, Da_stage1
 	return true;
 };
 
-static bool create_OP_1 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_1 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	if (value_in7(stage1->ins_code, I_ROL, I_ROR, I_RCL, I_RCR, I_SHL, I_SHR, I_SAR))
 	{
@@ -1095,283 +1095,283 @@ static bool create_OP_1 (op_source op, Da_stage1 *stage1, disas_address ins_adr,
 	return true;
 };
 
-static bool create_OP_AH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_AH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_AH;
 	return true;
 };
 
-static bool create_OP_AL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_AL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_AL;
 	return true;
 };
 
-static bool create_OP_BH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_BH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_BH;
 	return true;
 };
 
-static bool create_OP_BL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_BL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_BL;
 	return true;
 };
 
-static bool create_OP_CH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_CH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_CH;
 	return true;
 };
 
-static bool create_OP_CL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_CL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_CL;
 	return true;
 };
 
-static bool create_OP_DH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_DH (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_DH;
 	return true;
 };
 
-static bool create_OP_DL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_DL (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=8; out->reg=R_DL;
 	return true;
 };
 
-static bool create_OP_AX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_AX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_AX;
 	return true;
 }
 
-static bool create_OP_BX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_BX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_BX;
 	return true;
 }
 
-static bool create_OP_CX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_CX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_CX;
 	return true;
 }
 
-static bool create_OP_DX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_DX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_DX;
 	return true;
 }
 
-static bool create_OP_SP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_SP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool create_OP_BP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_BP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool create_OP_SI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_SI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool create_OP_DI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_DI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SP;
 	return true;
 };
 
-static bool create_OP_EAX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_EAX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EAX;
 	return true;
 };
 
-static bool create_OP_EBX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_EBX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EBX;
 	return true;
 };
 
-static bool create_OP_ECX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ECX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_ECX;
 	return true;
 };
 
-static bool create_OP_EDX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_EDX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EDX;
 	return true;
 };
 
-static bool create_OP_ESI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ESI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_ESI;
 	return true;
 };
 
-static bool create_OP_EDI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_EDI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EDI;
 	return true;
 };
 
-static bool create_OP_EBP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_EBP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_EBP;
 	return true;
 };
 
-static bool create_OP_ESP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ESP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=32; out->reg=R_ESP;
 	return true;
 };
 
-static bool create_OP_RAX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RAX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RAX;
 	return true;
 };
 
-static bool create_OP_RBX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RBX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RBX;
 	return true;
 };
 
-static bool create_OP_RCX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RCX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RCX;
 	return true;
 };
 
-static bool create_OP_RDX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RDX (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RDX;
 	return true;
 };
 
-static bool create_OP_RSI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RSI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RSI;
 	return true;
 };
 
-static bool create_OP_RDI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RDI (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RDI;
 	return true;
 };
 
-static bool create_OP_RBP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RBP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RBP;
 	return true;
 };
 
-static bool create_OP_RSP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_RSP (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=64; out->reg=R_RSP;
 	return true;
 };
 
-static bool create_OP_ST0 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST0 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST0;
 	return true;
 };
 
-static bool create_OP_ST1 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST1 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST1;
 	return true;
 };
 
-static bool create_OP_ST2 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST2 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST2;
 	return true;
 };
 
-static bool create_OP_ST3 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST3 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST3;
 	return true;
 };
 
-static bool create_OP_ST4 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST4 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST4;
 	return true;
 };
 
-static bool create_OP_ST5 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST5 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST5;
 	return true;
 };
 
-static bool create_OP_ST6 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST6 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST6;
 	return true;
 };
 
-static bool create_OP_ST7 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ST7 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=80; out->reg=R_ST7;
 	return true;
 };
 
-static bool create_OP_ES (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_ES (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_ES;
 	return true;
 };
 
-static bool create_OP_CS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_CS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_CS;
 	return true;
 };
 
-static bool create_OP_SS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_SS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_SS;
 	return true;
 };
 
-static bool create_OP_DS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_DS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_DS;
 	return true;
 };
 
-static bool create_OP_FS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_FS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_FS;
 	return true;
 };
 
-static bool create_OP_GS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_GS (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	out->type=DA_OP_TYPE_REGISTER; out->value_width_in_bits=16; out->reg=R_GS;
 	return true;
 };
 
-static bool create_OP_IMM8 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
+static bool c_OP_IMM8 (op_source op, Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out)
 {
 	oassert (stage1->IMM8_loaded==true);
 
@@ -2117,71 +2117,71 @@ static bool create_Da_op (op_source op, Da_stage1 *stage1, disas_address ins_adr
 	switch (op)
 	{
         case OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE:
-		return create_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (op, stage1, ins_adr, ins_len, out);
+		return c_OP_REG64_FROM_LOWEST_PART_OF_1ST_BYTE (op, stage1, ins_adr, ins_len, out);
 
         case OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE:
-		return create_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (op, stage1, ins_adr, ins_len, out);
+		return c_OP_REG32_FROM_LOWEST_PART_OF_1ST_BYTE (op, stage1, ins_adr, ins_len, out);
 
         case OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE:
-		return create_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (op, stage1, ins_adr, ins_len, out);
+		return c_OP_REG8_FROM_LOWEST_PART_OF_1ST_BYTE (op, stage1, ins_adr, ins_len, out);
 
         case OP_1:
-		return create_OP_1(op, stage1, ins_adr, ins_len, out);
+		return c_OP_1(op, stage1, ins_adr, ins_len, out);
 
-	case OP_AH: return create_OP_AH (op, stage1, ins_adr, ins_len, out);
-	case OP_AL: return create_OP_AL (op, stage1, ins_adr, ins_len, out);
-	case OP_BH: return create_OP_BH (op, stage1, ins_adr, ins_len, out);
-	case OP_BL: return create_OP_BL (op, stage1, ins_adr, ins_len, out);
-	case OP_CH: return create_OP_CH (op, stage1, ins_adr, ins_len, out);
-	case OP_CL: return create_OP_CL (op, stage1, ins_adr, ins_len, out);
-	case OP_DH: return create_OP_DH (op, stage1, ins_adr, ins_len, out);
-	case OP_DL: return create_OP_DL (op, stage1, ins_adr, ins_len, out);
+	case OP_AH: return c_OP_AH (op, stage1, ins_adr, ins_len, out);
+	case OP_AL: return c_OP_AL (op, stage1, ins_adr, ins_len, out);
+	case OP_BH: return c_OP_BH (op, stage1, ins_adr, ins_len, out);
+	case OP_BL: return c_OP_BL (op, stage1, ins_adr, ins_len, out);
+	case OP_CH: return c_OP_CH (op, stage1, ins_adr, ins_len, out);
+	case OP_CL: return c_OP_CL (op, stage1, ins_adr, ins_len, out);
+	case OP_DH: return c_OP_DH (op, stage1, ins_adr, ins_len, out);
+	case OP_DL: return c_OP_DL (op, stage1, ins_adr, ins_len, out);
 
-        case OP_AX: return create_OP_AX (op, stage1, ins_adr, ins_len, out);
-        case OP_BX: return create_OP_BX (op, stage1, ins_adr, ins_len, out);
-        case OP_CX: return create_OP_CX (op, stage1, ins_adr, ins_len, out);
-        case OP_DX: return create_OP_DX (op, stage1, ins_adr, ins_len, out);
+        case OP_AX: return c_OP_AX (op, stage1, ins_adr, ins_len, out);
+        case OP_BX: return c_OP_BX (op, stage1, ins_adr, ins_len, out);
+        case OP_CX: return c_OP_CX (op, stage1, ins_adr, ins_len, out);
+        case OP_DX: return c_OP_DX (op, stage1, ins_adr, ins_len, out);
 
-        case OP_SP: return create_OP_SP (op, stage1, ins_adr, ins_len, out);
-        case OP_BP: return create_OP_BP (op, stage1, ins_adr, ins_len, out);
-        case OP_SI: return create_OP_SI (op, stage1, ins_adr, ins_len, out);
-        case OP_DI: return create_OP_DI (op, stage1, ins_adr, ins_len, out);
+        case OP_SP: return c_OP_SP (op, stage1, ins_adr, ins_len, out);
+        case OP_BP: return c_OP_BP (op, stage1, ins_adr, ins_len, out);
+        case OP_SI: return c_OP_SI (op, stage1, ins_adr, ins_len, out);
+        case OP_DI: return c_OP_DI (op, stage1, ins_adr, ins_len, out);
 
-        case OP_EAX: return create_OP_EAX (op, stage1, ins_adr, ins_len, out);
-        case OP_EBX: return create_OP_EBX (op, stage1, ins_adr, ins_len, out);
-        case OP_ECX: return create_OP_ECX (op, stage1, ins_adr, ins_len, out);
-        case OP_EDX: return create_OP_EDX (op, stage1, ins_adr, ins_len, out);
-        case OP_EDI: return create_OP_EDI (op, stage1, ins_adr, ins_len, out);
-        case OP_ESI: return create_OP_ESI (op, stage1, ins_adr, ins_len, out);
-        case OP_EBP: return create_OP_EBP (op, stage1, ins_adr, ins_len, out);
-        case OP_ESP: return create_OP_ESP (op, stage1, ins_adr, ins_len, out);
+        case OP_EAX: return c_OP_EAX (op, stage1, ins_adr, ins_len, out);
+        case OP_EBX: return c_OP_EBX (op, stage1, ins_adr, ins_len, out);
+        case OP_ECX: return c_OP_ECX (op, stage1, ins_adr, ins_len, out);
+        case OP_EDX: return c_OP_EDX (op, stage1, ins_adr, ins_len, out);
+        case OP_EDI: return c_OP_EDI (op, stage1, ins_adr, ins_len, out);
+        case OP_ESI: return c_OP_ESI (op, stage1, ins_adr, ins_len, out);
+        case OP_EBP: return c_OP_EBP (op, stage1, ins_adr, ins_len, out);
+        case OP_ESP: return c_OP_ESP (op, stage1, ins_adr, ins_len, out);
 
-        case OP_RAX: return create_OP_RAX (op, stage1, ins_adr, ins_len, out);
-        case OP_RBX: return create_OP_RBX (op, stage1, ins_adr, ins_len, out);
-        case OP_RCX: return create_OP_RCX (op, stage1, ins_adr, ins_len, out);
-        case OP_RDX: return create_OP_RDX (op, stage1, ins_adr, ins_len, out);
-        case OP_RSI: return create_OP_RSI (op, stage1, ins_adr, ins_len, out);
-        case OP_RDI: return create_OP_RDI (op, stage1, ins_adr, ins_len, out);
-        case OP_RBP: return create_OP_RBP (op, stage1, ins_adr, ins_len, out);
-        case OP_RSP: return create_OP_RSP (op, stage1, ins_adr, ins_len, out);
+        case OP_RAX: return c_OP_RAX (op, stage1, ins_adr, ins_len, out);
+        case OP_RBX: return c_OP_RBX (op, stage1, ins_adr, ins_len, out);
+        case OP_RCX: return c_OP_RCX (op, stage1, ins_adr, ins_len, out);
+        case OP_RDX: return c_OP_RDX (op, stage1, ins_adr, ins_len, out);
+        case OP_RSI: return c_OP_RSI (op, stage1, ins_adr, ins_len, out);
+        case OP_RDI: return c_OP_RDI (op, stage1, ins_adr, ins_len, out);
+        case OP_RBP: return c_OP_RBP (op, stage1, ins_adr, ins_len, out);
+        case OP_RSP: return c_OP_RSP (op, stage1, ins_adr, ins_len, out);
 
-        case OP_ST0: return create_OP_ST0 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST1: return create_OP_ST1 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST2: return create_OP_ST2 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST3: return create_OP_ST3 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST4: return create_OP_ST4 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST5: return create_OP_ST5 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST6: return create_OP_ST6 (op, stage1, ins_adr, ins_len, out);
-        case OP_ST7: return create_OP_ST7 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST0: return c_OP_ST0 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST1: return c_OP_ST1 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST2: return c_OP_ST2 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST3: return c_OP_ST3 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST4: return c_OP_ST4 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST5: return c_OP_ST5 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST6: return c_OP_ST6 (op, stage1, ins_adr, ins_len, out);
+        case OP_ST7: return c_OP_ST7 (op, stage1, ins_adr, ins_len, out);
 
-        case OP_ES: return create_OP_ES (op, stage1, ins_adr, ins_len, out);
-        case OP_CS: return create_OP_CS (op, stage1, ins_adr, ins_len, out);
-        case OP_SS: return create_OP_SS (op, stage1, ins_adr, ins_len, out);
-        case OP_DS: return create_OP_DS (op, stage1, ins_adr, ins_len, out);
-        case OP_FS: return create_OP_FS (op, stage1, ins_adr, ins_len, out);
-        case OP_GS: return create_OP_GS (op, stage1, ins_adr, ins_len, out);
+        case OP_ES: return c_OP_ES (op, stage1, ins_adr, ins_len, out);
+        case OP_CS: return c_OP_CS (op, stage1, ins_adr, ins_len, out);
+        case OP_SS: return c_OP_SS (op, stage1, ins_adr, ins_len, out);
+        case OP_DS: return c_OP_DS (op, stage1, ins_adr, ins_len, out);
+        case OP_FS: return c_OP_FS (op, stage1, ins_adr, ins_len, out);
+        case OP_GS: return c_OP_GS (op, stage1, ins_adr, ins_len, out);
 
-        case OP_IMM8: return create_OP_IMM8(op, stage1, ins_adr, ins_len, out);
+        case OP_IMM8: return c_OP_IMM8(op, stage1, ins_adr, ins_len, out);
 
         case OP_IMM8_SIGN_EXTENDED_TO_IMM32:
 		return c_OP_IMM8_SIGN_EXTENDED_TO_IMM32 (op, stage1, ins_adr, ins_len, out);
@@ -2865,5 +2865,3 @@ REG Da_2nd_op_get_disp (Da *d)
 
 	return d->op[1].adr.adr_disp;
 };
-
-/* vim: set expandtab ts=4 sw=4 : */
