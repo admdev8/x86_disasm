@@ -2655,6 +2655,7 @@ const char* Da_ins_code_ToString(Da *d)
 };
 
 #if 0
+// TODO to be rewritten
 bool Da_op::is_EBP_plus_minus_X (address_offset & x) const // x can be negative/positive here
 {
 	if (type==DA_OP_TYPE_VALUE_IN_MEMORY &&
