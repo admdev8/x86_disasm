@@ -1,0 +1,2 @@
+SUBDIRS = lib tests include
+EXTRA_DIST = BUGS LICENSE README

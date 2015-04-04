@@ -138,7 +138,7 @@ bool Da_is_RET (Da* d, uint16_t * out_X);
 
 const char* disas1_ins_code_to_string (Ins_codes ins_code);
 
-#ifdef _DEBUG
+#ifdef X86_DISASM_DEBUG
 void print_unused_tbl_entries();
 #endif
 

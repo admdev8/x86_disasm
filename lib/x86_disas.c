@@ -45,7 +45,7 @@ static X86_register _8_registers_by_idx[]=
 static bool dbg_print=false;
 //static bool dbg_print=true;
 
-#ifdef _DEBUG
+#ifdef X86_DISASM_DEBUG
 void dump_Ins_definition(Ins_definition *d)
 {
 	printf ("%s, opc=%02X", d->name, d->opc);
@@ -616,7 +616,7 @@ bool Da_stage1_Da_stage1 (Da_stage1 *p, TrueFalseUndefined x64_code, disas_addre
 
 		p->ins_code=ins_tbl[p->tbl_p].ins_code;
 
-#ifdef _DEBUG
+#ifdef X86_DISASM_DEBUG
 		SET_BIT(ins_tbl[p->tbl_p].flags, F_HIT_DURING_EXECUTION);
 #endif
 		// let's load MODRM
@@ -2348,7 +2348,7 @@ bool Da_Da (TrueFalseUndefined x64_code, uint8_t* ptr_to_ins, disas_address adr_
 	out->ins_code=I_INVALID;
 	if (Da_stage1_Da_stage1(&stage1, x64_code, adr_of_ins)==false)
 	{
-#ifdef _DEBUG
+#ifdef X86_DISASM_DEBUG
 		fprintf (stderr, "Da_stage1_Da_stage1() failed\n");
 #endif
 		return false;
