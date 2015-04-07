@@ -43,11 +43,9 @@ typedef enum _Da_coded_result_op_type
     DA_OP_TYPE_ABSENT=0,
     DA_OP_TYPE_REGISTER=1,
     DA_OP_TYPE_VALUE=2,
-    DA_OP_TYPE_VALUE_IN_MEMORY=3
+    DA_OP_TYPE_VALUE_IN_MEMORY=3,
+    DA_OP_TYPE_ANY=4 /* wildcard, used in Da_is_ins_and_2ops_are() */
 } Da_coded_result_op_type;
-
-//2k: struct _Da_stage1;
-//2k: typedef struct _Da_stage1 Da_stage1;
 
 //#pragma pack(push)
 //#pragma pack(1)
@@ -148,6 +146,7 @@ bool Da_2nd_op_is_disp_only (Da* d);
 REG Da_2nd_op_get_disp (Da *d);
 bool Da_1st_op_is_val (Da* d);
 REG Da_1st_op_get_val (Da *d);
+bool Da_is_ins_and_2ops_are (Da* d, Ins_codes ins, Da_coded_result_op_type type1, Da_coded_result_op_type type2);
 
 #ifdef  __cplusplus
 }

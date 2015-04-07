@@ -1,3 +1,7 @@
+2015-04-05  Dennis Yurichev <dennis@yurichev.com>
+
+	* New function: Da_is_ins_and_2ops_are()
+
 2015-04-04  Dennis Yurichev <dennis@yurichev.com>
 
 	* Switching to GNU autotools

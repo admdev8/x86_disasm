@@ -2761,3 +2761,17 @@ REG Da_2nd_op_get_disp (Da *d)
 
 	return d->op[1].adr.adr_disp;
 };
+
+bool Da_is_ins_and_2ops_are (Da* d, Ins_codes ins, Da_coded_result_op_type type1, Da_coded_result_op_type type2)
+{
+	if (d->ins_code!=ins)
+		return false;
+	if (d->ops_total<2)
+		return false;
+	if (type1!=DA_OP_TYPE_ANY && d->op[0].type!=type1)
+		return false;
+	if (type2!=DA_OP_TYPE_ANY && d->op[1].type!=type2)
+		return false;
+
+	return true;
+};
