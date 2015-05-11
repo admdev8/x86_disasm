@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "oassert.h"
 
-bool X86_register_is_flag (X86_register r)
+bool X86_register_is_flag (enum X86_register r)
 {
     switch (r)
     {
@@ -30,7 +30,7 @@ bool X86_register_is_flag (X86_register r)
     };
 };
 
-bool X86_register_is_STx (X86_register r)
+bool X86_register_is_STx (enum X86_register r)
 {
     switch (r)
     {
@@ -58,13 +58,13 @@ bool X86_register_from_string (const char* s, X86_register *out)
 };
 */
 
-X86_register X86_register_from_string (const char* s)
+enum X86_register X86_register_from_string (const char* s)
 {
 #if 0
     L ("%s:%d s=%s, this=0x%x\n", __FUNCTION__, __LINE__, s, this);
 #endif
 
-    X86_register r=R_ABSENT;
+    enum X86_register r=R_ABSENT;
 
     if (strcasecmp (s, "eax")==0) r=R_EAX;
     if (strcasecmp (s, "ebx")==0) r=R_EBX;
@@ -164,7 +164,7 @@ X86_register X86_register_from_string (const char* s)
     return r;
 };
 
-const char* X86_register_ToString (X86_register r)
+const char* X86_register_ToString (enum X86_register r)
 {
 #if 0
     L ("%s:%d this=0x%x\n", __FUNCTION__, __LINE__, this);
@@ -323,7 +323,7 @@ const char* X86_register_ToString (X86_register r)
     };
 };
 
-enum obj_type X86_register_get_type (X86_register r)
+enum obj_type X86_register_get_type (enum X86_register r)
 {
     switch (r)
     {
@@ -383,29 +383,29 @@ enum obj_type X86_register_get_type (X86_register r)
 };
 
 
-bool X86_register_is_ExX_ExI(X86_register r)
+bool X86_register_is_ExX_ExI(enum X86_register r)
 {
     return (r==R_EAX || r==R_EBX || r==R_ECX || r==R_EDX || r==R_ESI || r==R_EDI || r==R_EBP || r==R_ESP);
 };
-bool X86_register_is_xX_xI(X86_register r)
+bool X86_register_is_xX_xI(enum X86_register r)
 {
     return (r==R_AX || r==R_BX || r==R_CX || r==R_DX || r==R_SI || r==R_DI || r==R_BP || r==R_SP);
 };
-bool X86_register_is_xH(X86_register r)
+bool X86_register_is_xH(enum X86_register r)
 {
     return (r==R_AH || r==R_BH || r==R_CH || r==R_DH);
 };
-bool X86_register_is_xL(X86_register r)
+bool X86_register_is_xL(enum X86_register r)
 {
     return (r==R_AL || r==R_BL || r==R_CL || r==R_DL);
 };
 
-bool X86_register_is_segment(X86_register r)
+bool X86_register_is_segment(enum X86_register r)
 {
     return (r==R_CS || r==R_DS || r==R_SS || r==R_ES || r==R_FS || r==R_GS);
 };
 
-X86_register X86_register_get_32bit_part_of(X86_register r)
+enum X86_register X86_register_get_32bit_part_of(enum X86_register r)
 {
     switch (r)
     {
@@ -431,7 +431,7 @@ X86_register X86_register_get_32bit_part_of(X86_register r)
     };
 };
 
-bool X86_register_is_XMMx(X86_register r)
+bool X86_register_is_XMMx(enum X86_register r)
 {
     switch (r)
     {

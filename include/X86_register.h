@@ -16,7 +16,7 @@
 extern "C" {
 #endif
 
-typedef enum X86_register_t
+enum X86_register
 {
     R_ABSENT=0, // should always be zero!
     
@@ -143,22 +143,22 @@ typedef enum X86_register_t
     R_TF,
 
     R_MAX // should be present!
-} X86_register;
+};
 
-X86_register X86_register_from_string (const char* s);
+enum X86_register X86_register_from_string (const char* s);
 //bool X86_register_from_string (const char* s, X86_register *out);
-bool X86_register_is_flag (X86_register r);
-bool X86_register_is_STx (X86_register r);
-const char* X86_register_ToString (X86_register r);
-enum obj_type X86_register_get_type (X86_register r);
+bool X86_register_is_flag (enum X86_register r);
+bool X86_register_is_STx (enum X86_register r);
+const char* X86_register_ToString (enum X86_register r);
+enum obj_type X86_register_get_type (enum X86_register r);
 
-bool X86_register_is_ExX_ExI(X86_register r);
-bool X86_register_is_xX_xI(X86_register r);
-bool X86_register_is_xH(X86_register r);
-bool X86_register_is_xL(X86_register r);
-bool X86_register_is_segment(X86_register r);
-bool X86_register_is_XMMx(X86_register r);
-X86_register X86_register_get_32bit_part_of(X86_register r);
+bool X86_register_is_ExX_ExI(enum X86_register r);
+bool X86_register_is_xX_xI(enum X86_register r);
+bool X86_register_is_xH(enum X86_register r);
+bool X86_register_is_xL(enum X86_register r);
+bool X86_register_is_segment(enum X86_register r);
+bool X86_register_is_XMMx(enum X86_register r);
+enum X86_register X86_register_get_32bit_part_of(enum X86_register r);
 
 #ifdef  __cplusplus
 }

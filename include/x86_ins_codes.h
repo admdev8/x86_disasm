@@ -9,7 +9,7 @@
 
 #pragma once
 
-typedef enum Ins_codes_t
+enum Ins_codes
 {
     I_INVALID=0,
 
@@ -345,6 +345,6 @@ typedef enum Ins_codes_t
     I_MULSS,
 
     I_MAX_INS
-} Ins_codes;
+};
 
 /* vim: set expandtab ts=4 sw=4 : */

@@ -16,7 +16,7 @@
 
 //#pragma pack(push)
 //#pragma pack(1)
-typedef struct _Da_stage1
+struct Da_stage1
 {
     bool use_callbacks:1;
     // case 1
@@ -34,7 +34,7 @@ typedef struct _Da_stage1
     unsigned PREFIXES;
     unsigned ESCAPE_0F:1, ESCAPE_F2:1, ESCAPE_F3:1;
     unsigned PREFIX_66_is_present:1, PREFIX_67:1;
-    Ins_codes ins_code;
+    enum Ins_codes ins_code;
     unsigned len;
     unsigned tbl_p;
     uint64_t new_flags; // including promoted F_IMM64, etc
@@ -85,18 +85,18 @@ typedef struct _Da_stage1
     uint64_t IMM64; unsigned IMM64_loaded:1; disas_address IMM64_pos;
 
     uint64_t PTR; unsigned PTR_loaded; disas_address PTR_pos;
-} Da_stage1;
+};
 //#pragma pack(pop)
 
 // "methods"
-bool Da_stage1_get_next_byte(Da_stage1* p, uint8_t *out);
-void Da_stage1_unget_byte(Da_stage1 *p);
-bool Da_stage1_get_next_word(Da_stage1 *p, uint16_t *out);
-bool Da_stage1_get_next_dword(Da_stage1 *p, uint32_t *out);
-bool Da_stage1_get_next_qword (Da_stage1 *p, uint64_t *out);
-bool Da_stage1_load_prefixes_escapes_opcode (Da_stage1 *p, disas_address adr_of_ins, uint8_t *out);
-void Da_stage1_dump (Da_stage1 *p, disas_address adr, int len);
-bool Da_stage1_Da_stage1 (Da_stage1 *p, TrueFalseUndefined x64_code, disas_address adr_of_ins);
+bool Da_stage1_get_next_byte(struct Da_stage1* p, uint8_t *out);
+void Da_stage1_unget_byte(struct Da_stage1 *p);
+bool Da_stage1_get_next_word(struct Da_stage1 *p, uint16_t *out);
+bool Da_stage1_get_next_dword(struct Da_stage1 *p, uint32_t *out);
+bool Da_stage1_get_next_qword (struct Da_stage1 *p, uint64_t *out);
+bool Da_stage1_load_prefixes_escapes_opcode (struct Da_stage1 *p, disas_address adr_of_ins, uint8_t *out);
+void Da_stage1_dump (struct Da_stage1 *p, disas_address adr, int len);
+bool Da_stage1_Da_stage1 (struct Da_stage1 *p, TrueFalseUndefined x64_code, disas_address adr_of_ins);
 
 // flags:
 
@@ -167,9 +167,9 @@ bool Da_stage1_Da_stage1 (Da_stage1 *p, TrueFalseUndefined x64_code, disas_addre
 // this information will be used in print_unused_tbl_entries() while testing
 #define F_HIT_DURING_EXECUTION  OCTABYTE_1<<45
 
-typedef bool (*c_OP_fn) (Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, Da_op *out);
+typedef bool (*c_OP_fn) (struct Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, struct Da_op *out);
 
-typedef struct _Ins_definition
+struct Ins_definition
 {
     uint8_t opc;
     uint8_t opc2;
@@ -180,8 +180,8 @@ typedef struct _Ins_definition
 
     const char *name;
 
-    Ins_codes ins_code;
-} Ins_definition;
+    enum Ins_codes ins_code;
+};
 
 //Ins_definition ins_tbl[];
 //extern Ins_definition ins_tbl[];

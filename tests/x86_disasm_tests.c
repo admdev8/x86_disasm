@@ -19,7 +19,7 @@
 void disas_test1(TrueFalseUndefined x64, const unsigned char* code, disas_address adr, const char *must_be)
 {
     strbuf t=STRBUF_INIT;
-    Da d;
+    struct Da d;
     bool b=Da_Da(x64, (byte*)code, adr, &d);
     size_t i;
 
@@ -47,7 +47,7 @@ void disas_test1(TrueFalseUndefined x64, const unsigned char* code, disas_addres
 void disas_test2_2op(TrueFalseUndefined x64, const unsigned char* code, disas_address adr, const char *must_be, int value1_must_be, int value2_must_be)
 {
     strbuf t=STRBUF_INIT;
-    Da d;
+    struct Da d;
     bool b;
     size_t i;
 
@@ -75,7 +75,7 @@ void disas_test2_2op(TrueFalseUndefined x64, const unsigned char* code, disas_ad
 void disas_test2_1op(TrueFalseUndefined x64, const unsigned char* code, disas_address adr, const char *must_be, int value1_must_be)
 {
     strbuf t=STRBUF_INIT;
-    Da d;
+    struct Da d;
     bool b;
     
     b=Da_Da(x64, (byte*)code, adr, &d);
@@ -96,7 +96,7 @@ void disas_test2_1op(TrueFalseUndefined x64, const unsigned char* code, disas_ad
 
 void x86_disas_test_1()
 {
-    Da d;
+    struct Da d;
     bool b;
 
     //printf (__FUNCTION__"() begin\n");
@@ -172,7 +172,7 @@ void x86_disas_test_64();
 
 void check_SHR()
 {
-    Da d;
+    struct Da d;
     bool b;
 
     b=Da_Da(Fuzzy_False, (byte*)"\xD1\xEE", 0, &d); // SHR ESI, 1
