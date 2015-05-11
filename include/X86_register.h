@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <windows.h>
+//#include <windows.h>
 #include "lisp.h"
 
 #ifdef  __cplusplus

@@ -41,6 +41,11 @@ make check
 [sudo] make install
 =================================================
 
+* Shared library:
+
+This library is compiled as static by default.
+Use "--enable-shared" to make shared library.
+
 * MinGW:
 
 How to set up both x86 and x64 MinGW compilers: http://yurichev.com/refs/mingw.html

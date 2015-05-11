@@ -20,7 +20,7 @@ void disas_test1(TrueFalseUndefined x64, const unsigned char* code, disas_addres
 {
     strbuf t=STRBUF_INIT;
     Da d;
-    bool b=Da_Da(x64, (BYTE*)code, adr, &d);
+    bool b=Da_Da(x64, (byte*)code, adr, &d);
     size_t i;
 
     //printf (__FUNCTION__"(x64=%d) begin\n", x64);
@@ -51,7 +51,7 @@ void disas_test2_2op(TrueFalseUndefined x64, const unsigned char* code, disas_ad
     bool b;
     size_t i;
 
-    b=Da_Da(x64, (BYTE*)code, adr, &d);
+    b=Da_Da(x64, (byte*)code, adr, &d);
     //printf (__FUNCTION__"() begin\n");
     oassert(b);
     Da_ToString(&d, &t);
@@ -78,7 +78,7 @@ void disas_test2_1op(TrueFalseUndefined x64, const unsigned char* code, disas_ad
     Da d;
     bool b;
     
-    b=Da_Da(x64, (BYTE*)code, adr, &d);
+    b=Da_Da(x64, (byte*)code, adr, &d);
 
     //printf (__FUNCTION__"() begin\n");
     oassert (b);
@@ -102,9 +102,9 @@ void x86_disas_test_1()
     //printf (__FUNCTION__"() begin\n");
 
 #ifdef _WIN64
-    b=Da_Da(Fuzzy_True, (BYTE*)"\x74\x2F", 0x14000114c, &d);
+    b=Da_Da(Fuzzy_True, (byte*)"\x74\x2F", 0x14000114c, &d);
 #else
-    b=Da_Da(Fuzzy_True, (BYTE*)"\x74\x2F", 0x4000114c, &d);
+    b=Da_Da(Fuzzy_True, (byte*)"\x74\x2F", 0x4000114c, &d);
 #endif
     oassert (b);
     Da_DumpString(&cur_fds, &d);
@@ -175,8 +175,8 @@ void check_SHR()
     Da d;
     bool b;
 
-    b=Da_Da(Fuzzy_False, (BYTE*)"\xD1\xEE", 0, &d); // SHR ESI, 1
-    //b=Da_Da(Fuzzy_False, (BYTE*)"\xC1\xEE\x03", 0, &d); // SHR ESI, 3
+    b=Da_Da(Fuzzy_False, (byte*)"\xD1\xEE", 0, &d); // SHR ESI, 1
+    //b=Da_Da(Fuzzy_False, (byte*)"\xC1\xEE\x03", 0, &d); // SHR ESI, 3
     oassert(b);
     //Da_DumpString(&cur_fds, &d);
     //printf ("\n");
@@ -11513,7 +11513,7 @@ disas_test1(Fuzzy_True, (const unsigned char*)"\x4F\x33\x84\xFF\x90\x90\x90\x90"
 disas_test1(Fuzzy_True, (const unsigned char*)"\x66\x0F\x6C\xC0", 0x12fed, "PUNPCKLQDQ XMM0, XMM0");
 
 #if 0
-    Da d(Fuzzy_True, (BYTE*)"\x40\xA0\x90\x90\x90\x90\x90\x90\x90\x90", 0x40A2CF);
+    Da d(Fuzzy_True, (byte*)"\x40\xA0\x90\x90\x90\x90\x90\x90\x90\x90", 0x40A2CF);
     cout << d.ToString() << endl;
     exit(0);
     cout << d.op[0].get()->value_width_in_bits << endl;

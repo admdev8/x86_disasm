@@ -1,3 +1,7 @@
+2015-05-11  Dennis Yurichev <dennis@yurichev.com>
+
+	* Shared library is now possible (--enable-shared).
+
 2015-04-05  Dennis Yurichev <dennis@yurichev.com>
 
 	* New function: Da_is_ins_and_2ops_are()
