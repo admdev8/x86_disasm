@@ -144,10 +144,11 @@ static void precompute_ins_pointers()
 bool Da_stage1_get_next_byte(Da_stage1* p, uint8_t *out)
 {
 	if (p->use_callbacks==false)
-		p->cur_ptr++, p->cur_adr++, *out=*(p->cur_ptr-1);
+		p->cur_ptr++, p->cur_adr++, p->cur_idx++, *out=*(p->cur_ptr-1);
 	else
 	{
 		p->cur_adr++;
+		p->cur_idx++;
 		if (p->read_byte_fn(p->callback_param, p->cur_adr-1, out)==false)
 		{
 			if (dbg_print)
@@ -155,6 +156,14 @@ bool Da_stage1_get_next_byte(Da_stage1* p, uint8_t *out)
 			return false;
 		};
 	};
+
+	if (p->cur_idx>X86_MAXIMAL_INS_LEN)
+	{
+		if (dbg_print)
+			printf ("%s() X86_MAXIMAL_INS_LEN reached at " PRI_ADR_HEX "\n", __func__, p->cur_adr-1);
+		return false;
+	};
+
 	return true;
 };
 
@@ -162,6 +171,7 @@ void Da_stage1_unget_byte(Da_stage1 *p)
 {
 	p->cur_ptr--;
 	p->cur_adr--;
+	p->cur_idx--;
 };
 
 bool Da_stage1_get_next_word(Da_stage1 *p, uint16_t *out)
@@ -169,12 +179,14 @@ bool Da_stage1_get_next_word(Da_stage1 *p, uint16_t *out)
 	if (p->use_callbacks==false)
 	{
 		p->cur_ptr+=sizeof(uint16_t);
+		p->cur_idx+=sizeof(uint16_t);
 		p->cur_adr+=sizeof(uint16_t); // will you need it?
 		*out=*(uint16_t*)(p->cur_ptr-sizeof(uint16_t));
 	} 
 	else
 	{
 		p->cur_adr+=sizeof(uint16_t);
+		p->cur_idx+=sizeof(uint16_t);
 		if (p->read_word_fn(p->callback_param, p->cur_adr-sizeof(uint16_t), out)==false)
 		{
 			if (dbg_print)
@@ -182,6 +194,14 @@ bool Da_stage1_get_next_word(Da_stage1 *p, uint16_t *out)
 			return false;
 		};
 	};
+
+	if (p->cur_idx>X86_MAXIMAL_INS_LEN)
+	{
+		if (dbg_print)
+			printf ("%s() X86_MAXIMAL_INS_LEN reached at " PRI_ADR_HEX "\n", __func__, p->cur_adr-sizeof(uint16_t));
+		return false;
+	};
+
 	return true;
 };
 
@@ -190,12 +210,14 @@ bool Da_stage1_get_next_dword(Da_stage1 *p, uint32_t *out)
 	if (p->use_callbacks==false)
 	{
 		p->cur_ptr+=sizeof(uint32_t);
+		p->cur_idx+=sizeof(uint32_t);
 		p->cur_adr+=sizeof(uint32_t); // will you need it?
 		*out=*(uint32_t*)(p->cur_ptr-sizeof(uint32_t));
 	}
 	else
 	{
 		p->cur_adr+=sizeof(uint32_t);
+		p->cur_idx+=sizeof(uint32_t);
 		if (p->read_dword_fn(p->callback_param, p->cur_adr-sizeof(uint32_t), out)==false)
 		{
 			if (dbg_print)
@@ -203,6 +225,14 @@ bool Da_stage1_get_next_dword(Da_stage1 *p, uint32_t *out)
 			return false;
 		};
 	};
+
+	if (p->cur_idx>X86_MAXIMAL_INS_LEN)
+	{
+		if (dbg_print)
+			printf ("%s() X86_MAXIMAL_INS_LEN reached at " PRI_ADR_HEX "\n", __func__, p->cur_adr-sizeof(uint32_t));
+		return false;
+	};
+
 	return true;
 };
 
@@ -211,12 +241,14 @@ bool Da_stage1_get_next_qword (Da_stage1 *p, uint64_t *out)
 	if (p->use_callbacks==false)
 	{
 		p->cur_ptr+=sizeof(uint64_t);
+		p->cur_idx+=sizeof(uint64_t);
 		p->cur_adr+=sizeof(uint64_t); // will you need it?
 		*out=*(uint64_t*)(p->cur_ptr-sizeof(uint64_t));
 	}
 	else
 	{
 		p->cur_adr+=sizeof(uint64_t);
+		p->cur_idx+=sizeof(uint64_t);
 		if (p->read_oword_fn(p->callback_param, p->cur_adr-sizeof(uint64_t), out)==false)
 		{
 			if (dbg_print)
@@ -224,6 +256,14 @@ bool Da_stage1_get_next_qword (Da_stage1 *p, uint64_t *out)
 			return false;
 		};
 	};
+
+	if (p->cur_idx>X86_MAXIMAL_INS_LEN)
+	{
+		if (dbg_print)
+			printf ("%s() X86_MAXIMAL_INS_LEN reached at " PRI_ADR_HEX "\n", __func__, p->cur_adr-sizeof(uint64_t));
+		return false;
+	};
+
 	return true;
 };
 
@@ -462,6 +502,7 @@ void Da_stage1_clear(Da_stage1 *p)
 	p->PREFIXES=0;
 	p->ESCAPE_0F=p->ESCAPE_F2=p->ESCAPE_F3=0;
 	p->PREFIX_66_is_present=p->PREFIX_67=0;
+	p->cur_idx=0;
 	p->len=0;
 	p->REX_prefix_seen=0;
 	p->REX_W=p->REX_R=p->REX_X=p->REX_B=0;
