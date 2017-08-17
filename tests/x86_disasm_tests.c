@@ -11527,7 +11527,7 @@ disas_test1(Fuzzy_True, (const unsigned char*)"\x66\x0F\x6C\xC0", 0x12fed, "PUNP
 int main()
 {
     printf ("%s() begin\n", __FUNCTION__);
-
+    
     check_SHR();
 
     x86_disas_test_32();

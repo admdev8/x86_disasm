@@ -29,6 +29,7 @@ struct Da_stage1
     void *callback_param;
 
     // case 1 and 2:
+    uint8_t cur_idx;
     disas_address cur_adr;
 
     unsigned PREFIXES;
