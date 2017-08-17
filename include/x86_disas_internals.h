@@ -100,72 +100,72 @@ bool Da_stage1_Da_stage1 (struct Da_stage1 *p, TrueFalseUndefined x64_code, disa
 
 // flags:
 
-#define F_MODRM OCTABYTE_1<<0
-#define F_IMM8  OCTABYTE_1<<1
-#define F_IMM16 OCTABYTE_1<<2
-#define F_IMM32 OCTABYTE_1<<3
+#define F_MODRM OCTA_1<<0
+#define F_IMM8  OCTA_1<<1
+#define F_IMM16 OCTA_1<<2
+#define F_IMM32 OCTA_1<<3
 
-#define F_PREFIX66_ALLOWED OCTABYTE_1<<4
-#define F_PREFIX66_IS_PART_OF_OPCODE OCTABYTE_1<<5
-#define F_PREFIX66_APPLIED_TO_OP1_ONLY OCTABYTE_1<<6
+#define F_PREFIX66_ALLOWED OCTA_1<<4
+#define F_PREFIX66_IS_PART_OF_OPCODE OCTA_1<<5
+#define F_PREFIX66_APPLIED_TO_OP1_ONLY OCTA_1<<6
 
-#define F_REG32_IS_LOWEST_PART_OF_1ST_BYTE OCTABYTE_1<<7
+#define F_REG32_IS_LOWEST_PART_OF_1ST_BYTE OCTA_1<<7
 
-#define F_REG64_IS_LOWEST_PART_OF_1ST_BYTE OCTABYTE_1<<9
+#define F_REG64_IS_LOWEST_PART_OF_1ST_BYTE OCTA_1<<9
 
 // including promoting F_IMM32 to F_IMM64 ... (кажется)
-#define F_REXW_PROMOTE_ALL_32_OPS_TO_64 OCTABYTE_1<<11
+#define F_REXW_PROMOTE_ALL_32_OPS_TO_64 OCTA_1<<11
 
-#define F_X32_ONLY OCTABYTE_1<<12
-#define F_X64_ONLY OCTABYTE_1<<13
+#define F_X32_ONLY OCTA_1<<12
+#define F_X64_ONLY OCTA_1<<13
 
-#define F_IMM64 OCTABYTE_1<<14
+#define F_IMM64 OCTA_1<<14
 
-#define F_REXW_ABSENT OCTABYTE_1<<16
-#define F_REXW_PRESENT OCTABYTE_1<<17
+#define F_REXW_ABSENT OCTA_1<<16
+#define F_REXW_PRESENT OCTA_1<<17
 
-#define F_X64_PROMOTE_OP1_32_TO_64 OCTABYTE_1<<18
-#define F_REXW_SIGN_EXTEND_OP2_32_TO_64 OCTABYTE_1<<19
-#define F_REXW_PROMOTE_OP1_32_TO_64 OCTABYTE_1<<20
+#define F_X64_PROMOTE_OP1_32_TO_64 OCTA_1<<18
+#define F_REXW_SIGN_EXTEND_OP2_32_TO_64 OCTA_1<<19
+#define F_REXW_PROMOTE_OP1_32_TO_64 OCTA_1<<20
 
-#define F_WHEN_MOD3_TREAT_RM_AS_STx OCTABYTE_1<<21
+#define F_WHEN_MOD3_TREAT_RM_AS_STx OCTA_1<<21
 
 // 0F is part of opcode?
-#define F_0F OCTABYTE_1<<22
+#define F_0F OCTA_1<<22
 
-#define F_MODRM_REG_0 OCTABYTE_1<<23
-#define F_MODRM_REG_1 OCTABYTE_1<<24
-#define F_MODRM_REG_2 OCTABYTE_1<<25
-#define F_MODRM_REG_3 OCTABYTE_1<<26
-#define F_MODRM_REG_4 OCTABYTE_1<<27
-#define F_MODRM_REG_5 OCTABYTE_1<<28
-#define F_MODRM_REG_6 OCTABYTE_1<<29
-#define F_MODRM_REG_7 OCTABYTE_1<<30
+#define F_MODRM_REG_0 OCTA_1<<23
+#define F_MODRM_REG_1 OCTA_1<<24
+#define F_MODRM_REG_2 OCTA_1<<25
+#define F_MODRM_REG_3 OCTA_1<<26
+#define F_MODRM_REG_4 OCTA_1<<27
+#define F_MODRM_REG_5 OCTA_1<<28
+#define F_MODRM_REG_6 OCTA_1<<29
+#define F_MODRM_REG_7 OCTA_1<<30
 
-#define F_MODRM_RM_2  OCTABYTE_1<<31
-#define F_MODRM_RM_3  OCTABYTE_1<<32
-#define F_MODRM_RM_0  OCTABYTE_1<<33
+#define F_MODRM_RM_2  OCTA_1<<31
+#define F_MODRM_RM_3  OCTA_1<<32
+#define F_MODRM_RM_0  OCTA_1<<33
 
 // F3 is part of opcode? (it was REP instruction also)
-#define F_F3          OCTABYTE_1<<34
+#define F_F3          OCTA_1<<34
 
 // F2 is part of opcode? (it was REPNE instruction also)
-#define F_F2          OCTABYTE_1<<35
+#define F_F2          OCTA_1<<35
 
-#define F_MODRM_MOD_IS_3     OCTABYTE_1<<36
-#define F_MODRM_MOD_IS_NOT_3 OCTABYTE_1<<37
-#define F_MODRM_RM_1         OCTABYTE_1<<38
-#define F_MODRM_RM_5         OCTABYTE_1<<39
-#define F_MODRM_RM_4       OCTABYTE_1<<40
-#define F_MODRM_RM_6       OCTABYTE_1<<41
-#define F_MODRM_RM_7       OCTABYTE_1<<42
+#define F_MODRM_MOD_IS_3     OCTA_1<<36
+#define F_MODRM_MOD_IS_NOT_3 OCTA_1<<37
+#define F_MODRM_RM_1         OCTA_1<<38
+#define F_MODRM_RM_5         OCTA_1<<39
+#define F_MODRM_RM_4       OCTA_1<<40
+#define F_MODRM_RM_6       OCTA_1<<41
+#define F_MODRM_RM_7       OCTA_1<<42
 
-#define F_PTR              OCTABYTE_1<<43
-#define F_OPC2             OCTABYTE_1<<44
+#define F_PTR              OCTA_1<<43
+#define F_OPC2             OCTA_1<<44
 
 // the flag is to be set in table in DEBUG build if disasm used the entry at least once
 // this information will be used in print_unused_tbl_entries() while testing
-#define F_HIT_DURING_EXECUTION  OCTABYTE_1<<45
+#define F_HIT_DURING_EXECUTION  OCTA_1<<45
 
 typedef bool (*c_OP_fn) (struct Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, struct Da_op *out);
 

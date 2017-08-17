@@ -345,13 +345,13 @@ enum obj_type X86_register_get_type (enum X86_register r)
     case R_ESP: case R_EBP: case R_EIP:
     case R_R8D:  case R_R9D:  case R_R10D: case R_R11D: case R_R12D: 
     case R_R13D: case R_R14D: case R_R15D: 
-        return OBJ_TETRABYTE;
+        return OBJ_TETRA;
 
     case R_RAX: case R_RBX: case R_RCX: case R_RDI: case R_RDX: case R_RSI:
     case R_RSP: case R_RBP: case R_RIP:
     case R_R8:  case R_R9:  case R_R10: case R_R11: case R_R12:
     case R_R13: case R_R14: case R_R15:
-        return OBJ_OCTABYTE;
+        return OBJ_OCTA;
 
     case R_ST0: case R_ST1: case R_ST2: case R_ST3: 
     case R_ST4: case R_ST5: case R_ST6: case R_ST7: 

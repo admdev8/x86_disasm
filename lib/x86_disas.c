@@ -46,7 +46,7 @@ static bool dbg_print=false;
 //static bool dbg_print=true;
 
 #ifdef X86_DISASM_DEBUG
-void dump_Ins_definition(Ins_definition *d)
+void dump_Ins_definition(struct Ins_definition *d)
 {
 	printf ("%s, opc=%02X", d->name, d->opc);
 	if (IS_SET(d->flags, F_OPC2))
@@ -896,22 +896,25 @@ bool Da_stage1_Da_stage1 (struct Da_stage1 *p, TrueFalseUndefined x64_code, disa
 
 opcode_not_found:
 	// opcode not found
-	fprintf (stderr, "adr_of_ins=0x" PRI_SIZE_T_HEX " opcode not found, opc=%02X, p->x64=%d, prefixes=", 
-		 adr_of_ins, opc, p->x64);
+	if (dbg_print)
+	{
+		fprintf (stderr, "adr_of_ins=0x" PRI_SIZE_T_HEX " opcode not found, opc=%02X, p->x64=%d, prefixes=", 
+			 adr_of_ins, opc, p->x64);
 
-	if (p->x64)   fprintf(stderr, "X64 ");
-	if (p->REX_W) fprintf(stderr, "REX_W ");
-	if (p->REX_R) fprintf(stderr, "REX_R ");
-	if (p->REX_X) fprintf(stderr, "REX_X ");
-	if (p->REX_B) fprintf(stderr, "REX_B ");
+		if (p->x64)   fprintf(stderr, "X64 ");
+		if (p->REX_W) fprintf(stderr, "REX_W ");
+		if (p->REX_R) fprintf(stderr, "REX_R ");
+		if (p->REX_X) fprintf(stderr, "REX_X ");
+		if (p->REX_B) fprintf(stderr, "REX_B ");
 
-	if (p->ESCAPE_0F) fprintf(stderr, "0F ");
-	if (p->ESCAPE_F2) fprintf(stderr, "F2 ");
-	if (p->ESCAPE_F3) fprintf(stderr, "F3 ");
-	if (p->PREFIX_66_is_present) fprintf(stderr, "66 ");
-	if (p->PREFIX_67) fprintf(stderr, "67 ");
+		if (p->ESCAPE_0F) fprintf(stderr, "0F ");
+		if (p->ESCAPE_F2) fprintf(stderr, "F2 ");
+		if (p->ESCAPE_F3) fprintf(stderr, "F3 ");
+		if (p->PREFIX_66_is_present) fprintf(stderr, "66 ");
+		if (p->PREFIX_67) fprintf(stderr, "67 ");
 
-	fprintf (stderr, "\n");
+		fprintf (stderr, "\n");
+	};
 
 	return false;
 };
@@ -1090,7 +1093,7 @@ bool c_OP_1 (struct Da_stage1 *stage1, disas_address ins_adr, unsigned ins_len, 
 	{
                 out->type=DA_OP_TYPE_VALUE;
                 out->value_width_in_bits=32; // FIXME: тут не всегда 32 бита
-                obj_tetrabyte2 (1, &out->val._v);
+                obj_tetra2 (1, &out->val._v);
 	};
 	return true;
 };
@@ -1388,7 +1391,7 @@ bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM32 (struct Da_stage1 *stage1, disas_address i
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=32;
-	obj_tetrabyte2 ((int32_t)(int8_t)stage1->IMM8, &out->val._v);
+	obj_tetra2 ((int32_t)(int8_t)stage1->IMM8, &out->val._v);
 	return true;
 };
 
@@ -1398,7 +1401,7 @@ bool c_OP_IMM8_SIGN_EXTENDED_TO_IMM64 (struct Da_stage1 *stage1, disas_address i
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=64;
-	obj_octabyte2 ((int64_t)(int8_t)stage1->IMM8, &out->val._v);
+	obj_octa2 ((int64_t)(int8_t)stage1->IMM8, &out->val._v);
 	return true;
 };
 
@@ -1408,7 +1411,7 @@ bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM32 (struct Da_stage1 *stage1, disas_address 
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=32;
-	obj_tetrabyte2 ((int32_t)(int16_t)stage1->IMM16, &out->val._v);
+	obj_tetra2 ((int32_t)(int16_t)stage1->IMM16, &out->val._v);
 	return true;
 };
 
@@ -1418,7 +1421,7 @@ bool c_OP_IMM16_SIGN_EXTENDED_TO_IMM64 (struct Da_stage1 *stage1, disas_address 
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=64;
-	obj_octabyte2 ((int64_t)(int16_t)stage1->IMM16, &out->val._v);
+	obj_octa2 ((int64_t)(int16_t)stage1->IMM16, &out->val._v);
 	return true;
 };
 
@@ -1434,12 +1437,12 @@ bool c_OP_IMM32_SIGN_EXTENDED_TO_IMM64 (struct Da_stage1 *stage1, disas_address 
 	if ((int32_t)stage1->IMM32>=0)
 	{
 		//L ("p1\n");
-		obj_octabyte2 ((uint64_t)stage1->IMM32, &out->val._v);
+		obj_octa2 ((uint64_t)stage1->IMM32, &out->val._v);
 	}
 	else
 	{
 		//L ("p2\n");
-		obj_octabyte2 ((uint64_t)(stage1->IMM32 | 0xFFFFFFFF00000000), &out->val._v);
+		obj_octa2 ((uint64_t)(stage1->IMM32 | 0xFFFFFFFF00000000), &out->val._v);
 	}
 	return true;
 };
@@ -1531,7 +1534,7 @@ bool c_OP_IMM8_AS_REL32 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=32;
-	obj_tetrabyte2 ((int32_t)(ins_adr + ins_len)+(int8_t)stage1->IMM8, &out->val._v);
+	obj_tetra2 ((int32_t)(ins_adr + ins_len)+(int8_t)stage1->IMM8, &out->val._v);
 	return true;
 };
 
@@ -1541,7 +1544,7 @@ bool c_OP_IMM8_AS_REL64 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=64;
-	obj_octabyte2 ((int64_t)(ins_adr + ins_len)+(int8_t)stage1->IMM8, &out->val._v);
+	obj_octa2 ((int64_t)(ins_adr + ins_len)+(int8_t)stage1->IMM8, &out->val._v);
 	return true;
 };
 
@@ -1561,7 +1564,7 @@ bool c_OP_IMM32 (struct Da_stage1 *stage1, disas_address ins_adr, unsigned ins_l
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=32;
-	obj_tetrabyte2 (stage1->IMM32, &out->val._v);
+	obj_tetra2 (stage1->IMM32, &out->val._v);
 	oassert (stage1->IMM32_pos!=0);
 	out->val.value32_pos=stage1->IMM32_pos;
 	return true;
@@ -1573,7 +1576,7 @@ bool c_OP_IMM64 (struct Da_stage1 *stage1, disas_address ins_adr, unsigned ins_l
 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=64;
-	obj_octabyte2 (stage1->IMM64, &out->val._v);
+	obj_octa2 (stage1->IMM64, &out->val._v);
 	oassert (stage1->IMM64_pos!=0);
 	out->val.value64_pos=stage1->IMM64_pos;
 	return true;
@@ -1669,7 +1672,7 @@ bool c_OP_IMM32_AS_REL32 (struct Da_stage1 *stage1, disas_address ins_adr, unsig
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=32;
 
-	obj_tetrabyte2 ((int32_t)(ins_adr+ins_len)+(int32_t)stage1->IMM32, &out->val._v);
+	obj_tetra2 ((int32_t)(ins_adr+ins_len)+(int32_t)stage1->IMM32, &out->val._v);
 	oassert (stage1->IMM32_pos!=0);
 	out->val.value32_pos=stage1->IMM32_pos;
 	return true;
@@ -1682,7 +1685,7 @@ bool c_OP_IMM32_SIGN_EXTENDED_TO_REL64 (struct Da_stage1 *stage1, disas_address 
 	out->type=DA_OP_TYPE_VALUE;
 	out->value_width_in_bits=64;
 
-	obj_octabyte2 ((int64_t)(ins_adr+ins_len)+(int64_t)((int32_t)stage1->IMM32), &out->val._v);
+	obj_octa2 ((int64_t)(ins_adr+ins_len)+(int64_t)((int32_t)stage1->IMM32), &out->val._v);
 	oassert (stage1->IMM32_pos!=0);
 	out->val.value32_pos=stage1->IMM32_pos;
 	return true;
@@ -2349,7 +2352,8 @@ bool Da_Da (TrueFalseUndefined x64_code, uint8_t* ptr_to_ins, disas_address adr_
 	if (Da_stage1_Da_stage1(&stage1, x64_code, adr_of_ins)==false)
 	{
 #ifdef X86_DISASM_DEBUG
-		fprintf (stderr, "Da_stage1_Da_stage1() failed\n");
+		if (dbg_print)
+			fprintf (stderr, "Da_stage1_Da_stage1() failed\n");
 #endif
 		return false;
 	};
@@ -2417,7 +2421,7 @@ void Da_op_ToString (struct Da_op* op, strbuf* out)
 
         case DA_OP_TYPE_VALUE:
 		// asm notation here
-		strbuf_asmhex (out, zero_extend_to_octabyte (&op->val._v));
+		strbuf_asmhex (out, zero_extend_to_octa (&op->val._v));
 		break;
 
         case DA_OP_TYPE_VALUE_IN_MEMORY:
@@ -2678,7 +2682,7 @@ bool Da_is_ADD_ESP_X (struct Da* d, uint32_t * out_X)
 	oassert (d->op[0].type==DA_OP_TYPE_REGISTER);
 	if (d->op[0].reg != R_ESP) return false;
 	if (d->op[1].type != DA_OP_TYPE_VALUE) return false;
-	*out_X = obj_get_as_tetrabyte(&d->op[1].val._v);
+	*out_X = obj_get_as_tetra(&d->op[1].val._v);
 	return true;
 };
 
@@ -2689,7 +2693,7 @@ bool Da_is_SUB_ESP_X (struct Da* d, uint32_t * out_X)
 	oassert (d->op[0].type==DA_OP_TYPE_REGISTER);
 	if (d->op[0].reg != R_ESP) return false;
 	if (d->op[1].type != DA_OP_TYPE_VALUE) return false;
-	*out_X = obj_get_as_tetrabyte(&d->op[1].val._v);
+	*out_X = obj_get_as_tetra(&d->op[1].val._v);
 	return true;
 };
 
