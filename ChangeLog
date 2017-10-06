@@ -1,3 +1,7 @@
+2017-10-06 Dennis Yurichev <dennis(a)yurichev.com>
+
+	* No more autotools!
+
 2015-05-12  Dennis Yurichev <dennis@yurichev.com>
 
 	* Getting rid of typedefs.

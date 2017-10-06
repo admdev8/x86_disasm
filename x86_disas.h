@@ -10,7 +10,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "X86_register.h"
+#include "x86_register.h"
 #include "lisp.h"
 #include "x86_ins_codes.h"
 #include "logging.h"

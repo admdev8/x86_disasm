@@ -11,7 +11,7 @@
 
 #include "datatypes.h"
 
-#include "X86_register.h"
+#include "x86_register.h"
 #include "x86_disas.h"
 
 //#pragma pack(push)
@@ -79,7 +79,7 @@ struct Da_stage1
     int32_t DISP32; unsigned DISP32_loaded:1; disas_address DISP32_pos;
 
     // IMM8/16/32
-    // 8 и 16 могут быть одновременно загружены, вот как при ENTER
+    // 8 Рё 16 РјРѕРіСѓС‚ Р±С‹С‚СЊ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ Р·Р°РіСЂСѓР¶РµРЅС‹, РІРѕС‚ РєР°Рє РїСЂРё ENTER
     uint8_t IMM8;  unsigned IMM8_loaded:1;
     uint16_t IMM16; unsigned IMM16_loaded:1;
     uint32_t IMM32; unsigned IMM32_loaded:1; disas_address IMM32_pos;
@@ -114,7 +114,7 @@ bool Da_stage1_Da_stage1 (struct Da_stage1 *p, TrueFalseUndefined x64_code, disa
 
 #define F_REG64_IS_LOWEST_PART_OF_1ST_BYTE OCTA_1<<9
 
-// including promoting F_IMM32 to F_IMM64 ... (кажется)
+// including promoting F_IMM32 to F_IMM64 ... (РєР°Р¶РµС‚СЃСЏ)
 #define F_REXW_PROMOTE_ALL_32_OPS_TO_64 OCTA_1<<11
 
 #define F_X32_ONLY OCTA_1<<12
