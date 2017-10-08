@@ -1,4 +1,7 @@
 *.swp
 *.o
 *.a
+*.obj
+*.exe
+*.lib
 

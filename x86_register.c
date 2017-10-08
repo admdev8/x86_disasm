@@ -10,7 +10,9 @@
 #include "x86_register.h"
 #include <stdint.h>
 #include <stdio.h>
+
 #include "oassert.h"
+#include "ostrings.h"
 
 bool X86_register_is_flag (enum X86_register r)
 {

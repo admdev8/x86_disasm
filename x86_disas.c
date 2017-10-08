@@ -1005,7 +1005,12 @@ static void decode_SIB (struct Da_stage1 *stage1,
 			*adr_base=R_ABSENT;
 		};
 		break;
-        case 0 ... 4: 
+        case 0: 
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+
         case 6:
         case 7: 
 		if (stage1->x64)
@@ -1043,8 +1048,14 @@ static void decode_SIB (struct Da_stage1 *stage1,
 		else
 			*adr_index=R_ABSENT;
 		break;
-        case 0 ... 3: 
-        case 5 ... 7:
+        case 0: 
+	case 1:
+	case 2:
+	case 3:
+
+        case 5:
+	case 6:
+	case 7:
 		if (stage1->x64)
 			*adr_index=_64_registers_by_idx[(stage1->REX_X ? 0x8 : 0) | stage1->SIB.s.index];
 		else
@@ -1893,8 +1904,13 @@ bool c_OP_MODRM_RM_mod0 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 			out->adr.adr_disp_is_not_negative=true;
 			break; // EA is just disp32
 
-		case 0 ... 3:
-		case 6 ... 7: 
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+
+		case 6:
+		case 7: 
 			//if (op==OP_MODRM_RM64)
 			if (stage1->x64)
 				out->adr.adr_base=_64_registers_by_idx[(stage1->REX_B ? 0x8 : 0) | stage1->MODRM.s.RM];
@@ -1907,7 +1923,12 @@ bool c_OP_MODRM_RM_mod0 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 	{ // PREFIX_67==true, take 16-bit part of modrm table
 		switch (stage1->MODRM.s.RM)
 		{
-		case 0 ... 5:
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
 		case 7:  
 			return false; // yet
 			oassert (!"PREFIX_67=true, we don't process 16-bit part of modrm table (yet)");
@@ -1982,8 +2003,13 @@ bool c_OP_MODRM_RM_mod1 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 		};
 		break;
 
-	case 0 ... 3:
-	case 5 ... 7:
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	case 5:
+	case 6:
+	case 7:
 		oassert (stage1->DISP8_loaded==true);
 		//if (op==OP_MODRM_RM64)
 		if (stage1->x64)
@@ -2059,8 +2085,13 @@ bool c_OP_MODRM_RM_mod2 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 
 		break;
 
-	case 0 ... 3:
-	case 5 ... 7:
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	case 5:
+	case 6:
+	case 7:
 		oassert (stage1->DISP32_loaded==true);
 		if (stage1->x64)
 			out->adr.adr_base=_64_registers_by_idx[(stage1->REX_B ? 8 : 0) | stage1->MODRM.s.RM];

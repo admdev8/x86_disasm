@@ -1,7 +1,7 @@
 OPTIONS=-D_DEBUG=1 -DRE_USE_MALLOC=1 -I../octothorpe
 OBJECTS=x86_register.o x86_disas.o
 
-all: x86_disasm.a
+all: x86_disasm.a tests
 
 x86_disasm.a: $(OBJECTS)
 	ar r x86_disasm.a x86_register.o x86_disas.o
