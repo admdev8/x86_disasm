@@ -1,10 +1,10 @@
 OPTIONS=/D__WORDSIZE=64 /D_DEBUG /DRE_USE_MALLOC /I../octothorpe
 OBJECTS=x86_register.obj x86_disas.obj
 
-all: x86_disasm.lib tests
+all: x86_disasm64.lib tests
 
-x86_disasm.lib: $(OBJECTS)
-	lib.exe $(OBJECTS) /OUT:x86_disasm.lib
+x86_disasm64.lib: $(OBJECTS)
+	lib.exe $(OBJECTS) /OUT:x86_disasm64.lib
 
 x86_register.obj: x86_register.c x86_register.h
 	cl x86_register.c /c $(OPTIONS)
@@ -19,6 +19,6 @@ tests: x86_disasm_tests
 
 clean:
 	rm -f *.o
-	rm -f x86_disasm.a
+	rm -f x86_disasm64.lib
 	rm -f tests
 
