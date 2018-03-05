@@ -459,4 +459,30 @@ bool X86_register_is_XMMx(enum X86_register r)
     };
 };
 
+enum X86_register _32_bit_X86_register_is_part_of_64_bit_reg (enum X86_register r)
+{
+    switch (r)
+    {
+    case R_EAX: return R_RAX;
+    case R_EBX: return R_RBX;
+    case R_ECX: return R_RCX;
+    case R_EDX: return R_RDX;
+    case R_ESI: return R_RSI;
+    case R_EDI: return R_RDI;
+    case R_EBP: return R_RSP;
+    case R_ESP: return R_RBP;
+    case R_EIP: return R_RIP;
+    
+    case R_R8D:  return R_R8;
+    case R_R9D:  return R_R9;
+    case R_R10D: return R_R10;
+    case R_R11D: return R_R11;
+    case R_R12D: return R_R12;
+    case R_R13D: return R_R13;
+    case R_R14D: return R_R14;
+    case R_R15D: return R_R15;
+    default: oassert(0);
+    };
+}
+
 /* vim: set expandtab ts=4 sw=4 : */

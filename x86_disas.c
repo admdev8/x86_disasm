@@ -2817,6 +2817,24 @@ REG Da_1st_op_get_val (struct Da *d)
 	return obj_get_as_REG (&d->op[0].val._v);
 };
 
+bool Da_2nd_op_is_val (struct Da* d)
+{
+	if (d->ops_total!=2)
+		return false;
+	if (d->op[1].type!=DA_OP_TYPE_VALUE)
+		return false;
+
+	return true;
+};
+
+octa Da_2nd_op_get_val (struct Da *d)
+{
+	oassert(Da_2nd_op_is_val (d));
+
+	// there can be 32-bit value, as well as 64-bit one:
+	return zero_extend_to_octa(&d->op[1].val._v);
+};
+
 bool Da_2nd_op_is_disp_only (struct Da* d)
 {
 	if (d->ops_total<2)

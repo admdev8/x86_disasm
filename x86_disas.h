@@ -144,8 +144,12 @@ bool Da_1st_op_is_disp_only (struct Da* d);
 REG Da_1st_op_get_disp (struct Da *d);
 bool Da_2nd_op_is_disp_only (struct Da* d);
 REG Da_2nd_op_get_disp (struct Da *d);
+
 bool Da_1st_op_is_val (struct Da* d);
 REG Da_1st_op_get_val (struct Da *d);
+bool Da_2nd_op_is_val (struct Da* d);
+octa Da_2nd_op_get_val (struct Da *d);
+
 bool Da_is_ins_and_2ops_are (struct Da* d, enum Ins_codes ins, enum Da_coded_result_op_type type1, enum Da_coded_result_op_type type2);
 
 #ifdef  __cplusplus

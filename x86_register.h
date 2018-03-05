@@ -159,6 +159,7 @@ bool X86_register_is_xL(enum X86_register r);
 bool X86_register_is_segment(enum X86_register r);
 bool X86_register_is_XMMx(enum X86_register r);
 enum X86_register X86_register_get_32bit_part_of(enum X86_register r);
+enum X86_register _32_bit_X86_register_is_part_of_64_bit_reg (enum X86_register r);
 
 #ifdef  __cplusplus
 }
