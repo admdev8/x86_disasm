@@ -266,6 +266,7 @@ enum Ins_codes
     I_REP_STOSB,
     I_REP_STOSD,
     I_REP_STOSW,
+    I_REP_STOSQ,
     I_RETF,
     I_RETN,
     I_ROL,
