@@ -534,6 +534,8 @@ bool Da_stage1_Da_stage1 (struct Da_stage1 *p, TrueFalseUndefined x64_code, disa
 	else
 		p->x64=false;
 
+	//printf ("line %d, p->x64=%d\n", __LINE__, p->x64);
+
 	if (Da_stage1_load_prefixes_escapes_opcode (p, adr_of_ins, &opc)==false)
 	{
 		if (dbg_print)
@@ -1069,8 +1071,18 @@ static void decode_SIB (struct Da_stage1 *stage1,
 	if (stage1->SIB.s.base==5 && stage1->MODRM.s.MOD==0)
 	{
 		oassert (stage1->DISP32_loaded==true);
-		*adr_disp_width_in_bits=32;
-		*adr_disp=stage1->DISP32;
+		if (stage1->x64)
+		{
+			//printf ("line %d\n", __LINE__);
+			*adr_disp_width_in_bits=64;
+			*adr_disp=(int64_t)(int32_t)stage1->DISP32;
+		}
+		else
+		{
+			//printf ("line %d\n", __LINE__);
+			*adr_disp_width_in_bits=32;
+			*adr_disp=stage1->DISP32;
+		};
 		oassert (stage1->DISP32_pos!=0);
 		*adr_disp_pos=stage1->DISP32_pos;
 	};
@@ -2017,8 +2029,16 @@ bool c_OP_MODRM_RM_mod1 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 		else
 			out->adr.adr_base=_32_registers_by_idx[stage1->MODRM.s.RM];
 
-		out->adr.adr_disp_width_in_bits=32;
-		out->adr.adr_disp=(uint32_t)(int32_t)(int8_t)stage1->DISP8;
+		if (stage1->x64)
+		{
+			out->adr.adr_disp_width_in_bits=64;
+			out->adr.adr_disp=(uint64_t)(int8_t)stage1->DISP8;
+		}
+		else
+		{
+			out->adr.adr_disp_width_in_bits=32;
+			out->adr.adr_disp=(int64_t)(int8_t)stage1->DISP8;
+		};
 
 		break;
 
