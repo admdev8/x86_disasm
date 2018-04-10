@@ -1993,8 +1993,16 @@ bool c_OP_MODRM_RM_mod1 (struct Da_stage1 *stage1, disas_address ins_adr, unsign
 				    &out->adr.adr_disp_width_in_bits,
 				    &out->adr.adr_disp_pos);
 
-			out->adr.adr_disp_width_in_bits=32;
-			out->adr.adr_disp=(uint32_t)(int32_t)(int8_t)stage1->DISP8;
+			if (stage1->x64)
+			{
+				out->adr.adr_disp_width_in_bits=64;
+				out->adr.adr_disp=(uint64_t)(int8_t)stage1->DISP8;
+			}
+			else
+			{
+				out->adr.adr_disp_width_in_bits=32;
+				out->adr.adr_disp=(int64_t)(int8_t)stage1->DISP8;
+			};
 
 			out->type=DA_OP_TYPE_VALUE_IN_MEMORY;
 			//init_adr_in_Da_op(out);

@@ -191,12 +191,22 @@ void check_LEA_x64()
 
     b=Da_Da(Fuzzy_True, (byte*)"\x48\x8D\x42\xE0", 0, &d); // lea     rax, [rdx-20h]
     oassert(b);
-    Da_DumpString(&cur_fds, &d);
-    printf ("\n");
 
     oassert (d.op[0].value_width_in_bits==64);
     oassert (d.op[1].value_width_in_bits==64);
     oassert (d.op[1].adr.adr_disp==0xffffffffffffffe0);
+    oassert (d.op[1].adr.adr_disp_width_in_bits==64);
+};
+
+void check_LEA_x64_2()
+{
+    struct Da d;
+    bool b;
+
+    b=Da_Da(Fuzzy_True, (byte*)"\x48\x8D\x6C\x24\x80", 0, &d); // lea     rbp, [rsp-80h]
+    oassert(b);
+
+    oassert (d.op[1].adr.adr_disp==0xffffffffffffff80);
     oassert (d.op[1].adr.adr_disp_width_in_bits==64);
 };
 
@@ -11545,9 +11555,10 @@ int main()
 {
     printf ("%s() begin\n", __FUNCTION__);
 
-    check_LEA_x64();
+    check_LEA_x64_2();
     //return 0;
-
+    check_LEA_x64();
+    
     check_SHR();
 
     x86_disas_test_32();
